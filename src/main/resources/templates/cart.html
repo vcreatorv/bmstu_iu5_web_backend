@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заявка</title>
+    <link th:href="@{/cart.css}" rel="stylesheet"> 
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <div class="container">
+        <h1 th:text="'Заявка №' + ${request.get('id')}">Заявка №0</h1>
+        <form class="form">
+            <div class="form-group">
+                <label for="customer">Заказчик:</label>
+                <input type="text" id="customer" th:value="${request.get('customer')}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="contact">Номер для связи:</label>
+                <input type="tel" id="contact" th:value="${request.get('phoneNumber')}" readonly>
+            </div>
+        </form>
+        <div class="cards-container">
+            <div th:each="position : ${request.get('positions')}" class="card">
+
+                <img class="card-image" th:src="${position.get('imageURL')}" th:alt="${position.get('title')}">
+                
+                <div class="card-content">
+                    <h2 th:text="${position.get('title')}">Название тарифа</h2>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <img class="card-detail-image" src="http://127.0.0.1:9000/lab1/quantity.png" alt="Количество">
+                            <p th:text="${position.get('description')} + ${position.get('amount')}">Описание</p>
+                        </div>
+                        <div class="detail-item">
+                            <img class="card-detail-image" src="http://127.0.0.1:9000/lab1/ruble.png" alt="Стоимость">
+                            <p th:text="${position.get('monthlyPayment')} ? 
+                                        ('стоимость ' + ${position.get('initialPrice') * position.get('amount')} + ' ₽ в месяц') : 
+                                        ('стоимость ' + ${position.get('initialPrice') * position.get('amount')} + ' ₽')">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
