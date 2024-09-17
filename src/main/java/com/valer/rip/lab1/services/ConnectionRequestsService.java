@@ -8,21 +8,21 @@ import org.springframework.stereotype.Service;
 import jakarta.annotation.PostConstruct;
 
 @Service
-public class RequestsService {
-        private List<Map<String, ? extends Object>> requests;
+public class ConnectionRequestsService {
+        private List<Map<String, ? extends Object>> connectionRequests;
 
         @PostConstruct
         public void init() {
-                requests = List.of(
+                connectionRequests = List.of(
                         Map.of(
-                                "id", 1,
+                                "id", "1",
                                 "customer", "Организация",
                                 "phoneNumber", "+7 (985) 460 48 79",
-                                "positions", List.of(
+                                "duties", List.of(
                                         Map.of(
                                                 "id", "2",
                                                 "title", "Виртуальная АТС",
-                                                "imageURL", "http://127.0.0.1:9000/lab1/virtual-ats.webp",
+                                                "imageURL", "http://127.0.0.1:9000/lab1/2.png",
                                                 "initialPrice", 350,
                                                 "monthlyPayment", true,
                                                 "amount", 5,
@@ -30,7 +30,7 @@ public class RequestsService {
                                         Map.of(
                                                 "id", "6",
                                                 "title", "Аренда двухдиапазонного роутера",
-                                                "imageURL", "http://127.0.0.1:9000/lab1/router_rent.webp",
+                                                "imageURL", "http://127.0.0.1:9000/lab1/6.png",
                                                 "initialPrice", 599,
                                                 "monthlyPayment", true,
                                                 "amount", 2,
@@ -38,11 +38,15 @@ public class RequestsService {
                                         )
                                 )
                 );
-
-                //int amount = requests.get(0).get("positions").get(0).get("amount"); 
         }
 
-        public List<Map<String, ? extends Object>> getRequests() {
-                return requests;
+        public List<Map<String, ? extends Object>> getConnectionRequests() {
+                return connectionRequests;
+        }
+
+        public Map<String, ? extends Object> getConnectionRequestById(String id) {
+                return connectionRequests.stream()
+                        .filter(request -> request.get("id").equals(id))
+                        .findFirst().orElse(null);
         }
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${duty.get('title')}">Duty Details</title>
+    <link rel="stylesheet" th:href="@{/duty.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <div class="container">
+        <div class="duty-card">
+            <img th:src="${duty.get('imageURL')}" alt="Duty Image" class="duty-image">
+            <h2 class="duty-title" th:text="${duty.get('title')}"></h2>
+            <p class="duty-description" th:utext="${duty.get('description')}"></p>
+
+            <!-- <div class="attributes">
+                <div class="attribute" th:each="attribute : ${duty.getAttributes()}">
+                    <img th:src="${attribute.getImageURL()}" alt="Attribute Icon" class="attribute-icon">
+                    <p class="attribute-description" th:text="${attribute.getDescription()}"></p>
+                </div>
+            </div> -->
+
+            <div class="price" th:text="${duty.get('monthlyPayment')} ? 'от ' + ${duty.get('price')} + ' ₽/мес' : 'от ' +${duty.get('price')} + ' ₽ за ' + ${duty.get('unit')}">Цена</div>
+        </div>
+    </div>
+</body>
+</html>
+
