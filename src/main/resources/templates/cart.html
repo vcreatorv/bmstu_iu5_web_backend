@@ -31,7 +31,7 @@
                     <div class="card-details">
                         <div class="detail-item">
                             <img class="card-detail-image" src="http://127.0.0.1:9000/lab1/quantity.png" alt="Количество">
-                            <p th:text="${duty.get('description')} + ${duty.get('amount')}">Описание</p>
+                            <p th:text="${duty.get('amountDescription')} + ' - ' + ${duty.get('amount')}">Описание</p>
                         </div>
                         <div class="detail-item">
                             <img class="card-detail-image" src="http://127.0.0.1:9000/lab1/ruble.png" alt="Стоимость">

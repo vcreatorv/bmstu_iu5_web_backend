@@ -23,6 +23,7 @@ public class ProviderDutiesService {
                                         "price", 1129,
                                         "monthlyPayment", true,
                                         "unit", "шт",
+                                        "amountDescription", "количество камер",
                                         "description",
                                         "Система видеонаблюдения помогает предотвращать преступления, контролировать сотрудников и отслеживать поток посетителей.<br><br>- Хранение записи в облаке до 14 дней <br>- Уведомления о движениях и звуках"),
 
@@ -33,6 +34,7 @@ public class ProviderDutiesService {
                                         "price", 350,
                                         "monthlyPayment", true,
                                         "unit", "шт",
+                                        "amountDescription", "количество номеров",
                                         "description",
                                         "Виртуальная АТС даёт возможность обрабатывать до 100 входящих вызовов одновременно, настроить голосовое приветствие и умное распределение вызовов между отделами, сотрудниками или регионами.<br><br>- До 20 входящих звонков одновременно<br>- Статистика по принятым и пропущенным звонкам"),
 
@@ -43,6 +45,7 @@ public class ProviderDutiesService {
                                         "price", 500,
                                         "monthlyPayment", false,
                                         "unit", "метр",
+                                        "amountDescription", "длина кабеля в метрах",
                                         "description",
                                         "Наши специалисты проведут кабель от точки входа в дом до вашего устройства и настроят интернет-соединение, чтобы вы могли пользоваться всеми преимуществами скоростного интернета.<br><br>- Тип подлключения FTTB<br>- Оптоволоконный материал"),
 
@@ -53,6 +56,7 @@ public class ProviderDutiesService {
                                         "price", 150,
                                         "monthlyPayment", true,
                                         "unit", "шт",
+                                        "amountDescription", "количество IP-адресов",
                                         "description",
                                         "Постоянный IP-адрес с уникальным идентификатором, который определяется глобально во всей сети.<br><br>- Интернет-протокол ipv4"),
 
@@ -63,6 +67,7 @@ public class ProviderDutiesService {
                                         "price", 2899,
                                         "monthlyPayment", false,
                                         "unit", "шт",
+                                        "amountDescription", "количество PLC-адаптеров",
                                         "description",
                                         "PLC-адаптеры – оптимальное решение, которое позволит подключить Домашнее телевидение без прокладки дополнительных проводов и наслаждаться просмотром телеканалов и видеофильмов в цифровом и HD-качестве в любом удобном месте вашей квартиры.<br><br>- Скорость до 900 Мбит/с"),
 
@@ -73,6 +78,7 @@ public class ProviderDutiesService {
                                         "price", 599,
                                         "monthlyPayment", true,
                                         "unit", "шт",
+                                        "amountDescription", "количество роутеров",
                                         "description",
                                         "Роутер максимального уровня. Имеет WAN-порт 2,5Гбит/с и 3 порта 1Гбит/с для ваших устройств. Максимальная скорость Wi-Fi более 2 Гбит/с.<br><br>- Скорость до 2,5Гбит/с<br>- Поддержка 2.4 и 5 Ггц"));
 
@@ -88,9 +94,9 @@ public class ProviderDutiesService {
                                 .findFirst().orElse(null);
         }
 
-        public List<Map<String, ? extends Object>> searchProviderDuties(String keyword) {
+        public List<Map<String, ? extends Object>> searchProviderDuties(String serviceTitle) {
                 return providerDuties.stream()
-                                .filter(duty -> ((String) duty.get("title")).toLowerCase().contains(keyword.toLowerCase()))
+                                .filter(duty -> ((String) duty.get("title")).toLowerCase().contains(serviceTitle.toLowerCase()))
                                 .collect(Collectors.toList());
         }
 }

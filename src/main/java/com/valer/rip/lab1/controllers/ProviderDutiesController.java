@@ -44,12 +44,12 @@ public class ProviderDutiesController {
     }
 
     @GetMapping("/search")
-    public String searchProviderDuties(@RequestParam("keyword") String keyword, Model model) {
-        if (keyword == null || keyword.isEmpty()) {
+    public String searchProviderDuties(@RequestParam("serviceTitle") String serviceTitle, Model model) {
+        if (serviceTitle == null || serviceTitle.isEmpty()) {
             model.addAttribute("duties", providerDutiesService.getProviderDuties());
         } else {
-            model.addAttribute("duties", providerDutiesService.searchProviderDuties(keyword));
-            model.addAttribute("keyword", keyword.toLowerCase());
+            model.addAttribute("duties", providerDutiesService.searchProviderDuties(serviceTitle));
+            model.addAttribute("serviceTitle", serviceTitle.toLowerCase());
         }
         return "duties";
     }

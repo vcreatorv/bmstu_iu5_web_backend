@@ -24,15 +24,15 @@
                 <img src="http://127.0.0.1:9000/lab1/lupa.png" alt="Search Icon">
             </button>
 
-            <input type="text" name="keyword" placeholder="Поиск" class="search-input" th:value="${keyword}">
+            <input type="text" name="serviceTitle" placeholder="Поиск" class="search-input" th:value="${serviceTitle}">
 
-            <button type="reset" class="reset-button">
+            <!-- <button type="reset" class="reset-button">
                 <img src="http://127.0.0.1:9000/lab1/cross.png" alt="Close Icon">
-            </button>
+            </button> -->
         </form>
 
-        <p th:if="${keyword != null}" class="search-text" 
-            th:text="'Результаты поиска по слову «' + ${keyword} + '»'">
+        <p th:if="${serviceTitle != null}" class="search-text" 
+            th:text="'Результаты поиска по слову «' + ${serviceTitle} + '»'">
         </p>
 
         <div class="cards-container">
