@@ -77,8 +77,9 @@ body {
 }
 
 .card-price {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
+    margin-left: 15px;
 }
 
 .btn-about {
@@ -100,6 +101,26 @@ body {
   .btn-about:hover {
     transform: translateY(-5px);
   }
+
+.btn-add {
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    background-color: #adadad;
+    width: 100px;
+    color: #373737;
+    text-decoration: none;
+    transition: transform 550ms;
+    will-change: transform;
+}
+
+.btn-add:hover {
+    transform: translateY(-5px);
+}
 
 
 

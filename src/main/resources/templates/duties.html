@@ -10,9 +10,9 @@
 
     <div th:replace="~{fragments/header :: header}"></div>
     
-    <a th:href="@{/connection-requests/{id}(id=${cart.get('id')})}" class="cart">
+    <a th:if="${cart.isPresent()}" th:href="@{/connection-requests/{id}(id=${cart.get().getId()})}" class="cart">
         <img src="http://127.0.0.1:9000/lab1/bee.png" alt="Bee Icon">
-        <p th:text="'Выбрано услуг: ' + ${cart.get('duties').size()}"></p>
+        <p th:text="'Выбрано услуг: ' + ${cart.get().getDutyRequests().size()}">0</p>
     </a>
     <h1 class="page-title">Услуги провайдера</h1>
 
@@ -39,12 +39,13 @@
             <div th:each="duty : ${duties}">
                 <div class="card">
                     <div class="card-header">
-                        <img th:src="${duty.get('imageURL')}" th:alt="${duty.get('title')}">
+                        <img th:src="${duty.getImgUrl()}" th:alt="${duty.getTitle()}">
                     </div>
-                    <h2 class="card-title" th:text="${duty.get('title')}"></h2>
+                    <h2 class="card-title" th:text="${duty.getTitle()}"></h2>
+                    <div class="card-price" th:text="${duty.getMonthlyPayment()} ? 'от ' + ${duty.getPrice()} + ' ₽/мес' : 'от ' +${duty.getPrice()} + ' ₽ за ' + ${duty.getUnit()}">Цена</div>
                     <div class="card-footer">
-                        <a th:href="@{/duties/{id}(id=${duty.get('id')})}" class="btn-about">Подробнее</a>
-                        <div class="card-price" th:text="${duty.get('monthlyPayment')} ? 'от ' + ${duty.get('price')} + ' ₽/мес' : 'от ' +${duty.get('price')} + ' ₽ за ' + ${duty.get('unit')}">Цена</div>
+                        <a th:href="@{/duties/{id}(id=${duty.getId()})}" class="btn-about">Подробнее</a>
+                        <a class="btn-add">Добавить</a>
                     </div>
                 </div>
             </div>

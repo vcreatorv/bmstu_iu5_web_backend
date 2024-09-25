@@ -1,3 +1,53 @@
+<!-- <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заявка</title>
+    <link th:href="@{/cart.css}" rel="stylesheet"> 
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <div class="container">
+        <h1 th:text="'Заявка №' + ${connection_request.getId()}">Заявка №0</h1>
+        <form class="form">
+            <div class="form-group">
+                <label for="Consumer">Заказчик:</label>
+                <input type="text" id="Consumer" th:value="${connection_request.getConsumer()}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="contact">Номер для связи:</label>
+                <input type="tel" id="contact" th:value="${connection_request.getPhoneNumber()}" readonly>
+            </div>
+        </form>
+        <div class="cards-container">
+            <div th:each="duty : ${connection_request.getDuties()}" class="card">
+
+                <img class="card-image" th:src="${duty.getImgUrl()}" th:alt="${duty.getTitle()}">
+                
+                <div class="card-content">
+                    <h2 th:text="${duty.getTitle()}">Название тарифа</h2>
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <img class="card-detail-image" src="http://127.0.0.1:9000/lab1/quantity.png" alt="Количество">
+                            <p th:text="${duty.getAmountDescription()} + ' - ' + ${duty.getAmount()}">Описание</p>
+                        </div>
+                        <div class="detail-item">
+                            <img class="card-detail-image" src="http://127.0.0.1:9000/lab1/ruble.png" alt="Стоимость">
+                            <p th:text="${duty.getMonthlyPayment()} ? 
+                                        ('стоимость ' + ${duty.getPrice() * duty.getAmount()} + ' ₽ в месяц') : 
+                                        ('стоимость ' + ${duty.getPrice() * duty.getAmount()} + ' ₽')">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> -->
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -10,34 +60,34 @@
     <div th:replace="~{fragments/header :: header}"></div>
 
     <div class="container">
-        <h1 th:text="'Заявка №' + ${connection_request.get('id')}">Заявка №0</h1>
+        <h1 th:text="'Заявка №' + ${connection_request.getId()}">Заявка №0</h1>
         <form class="form">
             <div class="form-group">
-                <label for="customer">Заказчик:</label>
-                <input type="text" id="customer" th:value="${connection_request.get('customer')}" readonly>
+                <label for="Consumer">Заказчик:</label>
+                <input type="text" id="Consumer" th:value="${connection_request.getConsumer()}" readonly>
             </div>
             <div class="form-group">
                 <label for="contact">Номер для связи:</label>
-                <input type="tel" id="contact" th:value="${connection_request.get('phoneNumber')}" readonly>
+                <input type="tel" id="contact" th:value="${connection_request.getPhoneNumber()}" readonly>
             </div>
         </form>
         <div class="cards-container">
-            <div th:each="duty : ${connection_request.get('duties')}" class="card">
+            <div th:each="dutyRequest : ${connection_request.getDutyRequests()}" class="card">
 
-                <img class="card-image" th:src="${duty.get('imageURL')}" th:alt="${duty.get('title')}">
+                <img class="card-image" th:src="${dutyRequest.providerDuty.getImgUrl()}" th:alt="${dutyRequest.providerDuty.getTitle()}">
                 
                 <div class="card-content">
-                    <h2 th:text="${duty.get('title')}">Название тарифа</h2>
+                    <h2 th:text="${dutyRequest.providerDuty.getTitle()}">Название тарифа</h2>
                     <div class="card-details">
                         <div class="detail-item">
                             <img class="card-detail-image" src="http://127.0.0.1:9000/lab1/quantity.png" alt="Количество">
-                            <p th:text="${duty.get('amountDescription')} + ' - ' + ${duty.get('amount')}">Описание</p>
+                            <p th:text="${dutyRequest.providerDuty.getAmountDescription()} + ' - ' + ${dutyRequest.getAmount()}">Описание</p>
                         </div>
                         <div class="detail-item">
                             <img class="card-detail-image" src="http://127.0.0.1:9000/lab1/ruble.png" alt="Стоимость">
-                            <p th:text="${duty.get('monthlyPayment')} ? 
-                                        ('стоимость ' + ${duty.get('initialPrice') * duty.get('amount')} + ' ₽ в месяц') : 
-                                        ('стоимость ' + ${duty.get('initialPrice') * duty.get('amount')} + ' ₽')">
+                            <p th:text="${dutyRequest.providerDuty.getMonthlyPayment()} ? 
+                                        ('стоимость ' + ${dutyRequest.providerDuty.getPrice() * dutyRequest.getAmount()} + ' ₽ в месяц') : 
+                                        ('стоимость ' + ${dutyRequest.providerDuty.getPrice() * dutyRequest.getAmount()} + ' ₽')">
                             </p>
                         </div>
                     </div>
