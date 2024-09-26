@@ -19,7 +19,7 @@ public class DutyRequestRepository {
 
     public void save(DutyRequest dutyRequest) {
         Session session = sessionFactory.getCurrentSession();
-        session.save(dutyRequest);
+        session.persist(dutyRequest);
     }
 
     public DutyRequest findById(int id) {
@@ -34,11 +34,11 @@ public class DutyRequestRepository {
 
     public void update(DutyRequest dutyRequest) {
         Session session = sessionFactory.getCurrentSession();
-        session.update(dutyRequest);
+        session.merge(dutyRequest);
     }
 
     public void delete(DutyRequest dutyRequest) {
         Session session = sessionFactory.getCurrentSession();
-        session.delete(dutyRequest);
+        session.remove(dutyRequest);
     }
 }

@@ -33,8 +33,9 @@ public class ConnectionRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(length = 10, nullable = false)
-    private String status;
+    @Column(length = 10, nullable = false, columnDefinition = "char(10) default 'DRAFT'")
+    private String status = "DRAFT";
+
 
     @Column(length = 255, nullable = false)
     private String consumer;
@@ -60,9 +61,6 @@ public class ConnectionRequest {
     @JoinColumn(name = "client", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User client;
-
-    // @OneToMany(mappedBy = "connectionRequest", cascade = CascadeType.ALL, orphanRemoval = true)
-    // private List<DutyRequest> duties = new ArrayList<>();
 
     @OneToMany(mappedBy = "connectionRequest", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DutyRequest> dutyRequests;

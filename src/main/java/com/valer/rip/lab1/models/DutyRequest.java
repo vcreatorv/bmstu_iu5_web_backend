@@ -36,7 +36,7 @@ public class DutyRequest {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ConnectionRequest connectionRequest;
 
-    @Column(nullable = false)
-    private int amount;  // количество, длина
+    @Column(nullable = false, columnDefinition = "int default 1")
+    private int amount = 1;
 
 }

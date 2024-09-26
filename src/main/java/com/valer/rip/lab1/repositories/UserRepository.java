@@ -17,11 +17,6 @@ public class UserRepository {
         this.sessionFactory = sessionFactory;
     }
 
-    public void save(User user) {
-        Session session = sessionFactory.getCurrentSession();
-        session.save(user);
-    }
-
     public User findById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(User.class, id);

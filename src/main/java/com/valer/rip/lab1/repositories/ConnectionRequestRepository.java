@@ -20,6 +20,13 @@ public class ConnectionRequestRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public ConnectionRequest createConnectionRequest() {
+        Session session = sessionFactory.getCurrentSession();
+        ConnectionRequest connectionRequest = new ConnectionRequest();
+        session.persist(connectionRequest);
+        return connectionRequest;
+    }
+
     public ConnectionRequest findById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(ConnectionRequest.class, id);
@@ -32,11 +39,25 @@ public class ConnectionRequestRepository {
 
     public void update(ConnectionRequest connectionRequest) {
         Session session = sessionFactory.getCurrentSession();
-        session.update(connectionRequest);
+        session.merge(connectionRequest);
+    }
+
+    public void save(ConnectionRequest connectionRequest) {
+        Session session = sessionFactory.getCurrentSession();
+        session.persist(connectionRequest);
     }
 
     public void updateStatusToDeleted(Long requestId) {
         String sql = "UPDATE connection_requests SET status = 'DELETED' WHERE id = ?";
         jdbcTemplate.update(sql, requestId);
+    }
+
+    public ConnectionRequest getDraftConnectionRequestByUser(String login) {
+        String hql = "FROM ConnectionRequest cr WHERE cr.client.login = :login AND cr.status = 'DRAFT'";
+        return sessionFactory.getCurrentSession()
+                             .createQuery(hql, ConnectionRequest.class)
+                             .setParameter("login", login)
+                             .uniqueResultOptional()
+                             .orElse(null);
     }
 }

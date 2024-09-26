@@ -31,6 +31,7 @@ body {
     column-gap: 50px;
     row-gap: 40px;
     margin: 0 auto;
+    margin-bottom: 20px;
   }
 
 .card {
@@ -74,6 +75,7 @@ body {
     margin:15px;
     gap: 15px;
     font-weight: bold;
+    flex-direction: row;
 }
 
 .card-price {
@@ -91,7 +93,7 @@ body {
     cursor: pointer;
     border: none;
     background-color: #fed305;
-    width: 100px;
+    width: 85px;
     color: #373737;
     text-decoration: none;
     transition: transform 550ms;
@@ -111,7 +113,7 @@ body {
     cursor: pointer;
     border: none;
     background-color: #adadad;
-    width: 100px;
+    width: 125px;
     color: #373737;
     text-decoration: none;
     transition: transform 550ms;
@@ -222,7 +224,7 @@ body {
     border-bottom: solid 2px #b8b8b8;
     position: fixed;
     z-index: 10;
-    background-color: #fff;
+    background-color: #fed305;
     top: 0;
 }
 
