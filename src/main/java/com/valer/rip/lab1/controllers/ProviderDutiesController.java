@@ -12,41 +12,41 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.valer.rip.lab1.models.ConnectionRequest;
 import com.valer.rip.lab1.models.ProviderDuty;
-import com.valer.rip.lab1.services.ConnectionRequestsService;
-import com.valer.rip.lab1.services.ProviderDutiesService;
+import com.valer.rip.lab1.services.ConnectionRequestService;
+import com.valer.rip.lab1.services.ProviderDutyService;
 
 @Controller
 @RequestMapping("/duties")
 public class ProviderDutiesController {
 
-    private final ProviderDutiesService providerDutiesService;
-    private final ConnectionRequestsService connectionRequestsService;
+    private final ProviderDutyService providerDutyService;
+    private final ConnectionRequestService connectionRequestService;
 
-    public ProviderDutiesController(ProviderDutiesService providerDutiesService, 
-                                    ConnectionRequestsService connectionRequestsService) {
-        this.providerDutiesService = providerDutiesService;
-        this.connectionRequestsService = connectionRequestsService;
+    public ProviderDutiesController(ProviderDutyService providerDutyService, 
+                                    ConnectionRequestService connectionRequestService) {
+        this.providerDutyService = providerDutyService;
+        this.connectionRequestService = connectionRequestService;
     }
 
     @ModelAttribute("cart")
     public Optional<ConnectionRequest> getDraftConnectionRequest() {
-        return connectionRequestsService.getDraftConnectionRequestByUser("vcreatorv");
+        return connectionRequestService.getDraftConnectionRequestByUserId(1);
     }
     
 
     @GetMapping
     public String getProviderDuties(Model model) {
-        model.addAttribute("duties", providerDutiesService.getProviderDuties());
+        model.addAttribute("duties", providerDutyService.getAllProviderDuties());
         return "duties";
     }
 
     @GetMapping("/{id}")
     public String getProviderDutyById(@PathVariable("id") int id, Model model) {
-        Optional<ProviderDuty> providerDuty = providerDutiesService.getProviderDutyById(id);
+        Optional<ProviderDuty> providerDuty = providerDutyService.getProviderDutyById(id);
         if (providerDuty.isPresent()) {
             model.addAttribute("duty", providerDuty.get());
         } else {
-            model.addAttribute("errorMessage", "Provider duty not found");
+           System.out.println("Provider duty not found");
         }
         return "duty";
     }
@@ -54,9 +54,9 @@ public class ProviderDutiesController {
     @GetMapping("/search")
     public String findDutyByTitle(@RequestParam("serviceTitle") String serviceTitle, Model model) {
         if (serviceTitle == null || serviceTitle.isEmpty()) {
-            model.addAttribute("duties", providerDutiesService.getProviderDuties());
+            model.addAttribute("duties", providerDutyService.getAllProviderDuties());
         } else {
-            model.addAttribute("duties", providerDutiesService.findDutyByTitle(serviceTitle));
+            model.addAttribute("duties", providerDutyService.findProviderDutiesByTitle(serviceTitle));
             model.addAttribute("serviceTitle", serviceTitle.toLowerCase());
         }
         return "duties";

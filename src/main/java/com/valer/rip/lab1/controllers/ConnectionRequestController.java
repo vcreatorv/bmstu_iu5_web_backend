@@ -11,17 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.valer.rip.lab1.models.ConnectionRequest;
-import com.valer.rip.lab1.services.ConnectionRequestsService;
+import com.valer.rip.lab1.services.ConnectionRequestService;
 
 
 @Controller
 @RequestMapping("/connection_requests")
-public class ConnectionRequestsController {
+public class ConnectionRequestController {
 
-    private final ConnectionRequestsService connectionRequestsService;
+    private final int userId = 1;
 
-    public ConnectionRequestsController(ConnectionRequestsService connectionRequestsService) {
-        this.connectionRequestsService = connectionRequestsService;
+    private final ConnectionRequestService connectionRequestService;
+
+    public ConnectionRequestController(ConnectionRequestService connectionRequestsService) {
+        this.connectionRequestService = connectionRequestsService;
     }
 
     @GetMapping("/{id}")
@@ -31,19 +33,22 @@ public class ConnectionRequestsController {
             return "redirect:/duties";
         }
 
-        Optional<ConnectionRequest> connectionRequest = connectionRequestsService.getConnectionRequestById(id);
+        Optional<ConnectionRequest> connectionRequest = connectionRequestService.getConnectionRequestById(id);
         if (connectionRequest.isPresent()) {
             model.addAttribute("connection_request", connectionRequest.get());
+            model.addAttribute("total_price", connectionRequestService.getTotalPriceOfRequest(connectionRequest.get()));
+            System.out.println(connectionRequestService.getTotalPriceOfRequest(connectionRequest.get()));
         } 
         else {
-            model.addAttribute("errorMessage", "Connection request not found");
+            System.out.println("Connection request not found");
+            model.addAttribute("total_price", 0);
         }
         return "cart";
     }
 
     @PostMapping("/add_provider_duty")
     public String addProviderDutyToRequest(@RequestParam("dutyId") int dutyId) {
-        connectionRequestsService.addProviderDutyToRequest(dutyId);
+        connectionRequestService.addProviderDutyToRequest(dutyId, this.userId);
         return "redirect:/duties";
     }
     

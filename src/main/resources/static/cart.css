@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 body {
     background-color: #f3f3f3;
     font-family: "Inter", sans-serif;
@@ -70,15 +72,21 @@ h1 {
     flex-grow: 1; /* Поле занимает оставшееся пространство */
     padding: 8px;
     padding-left: 15px;
-    border: 1px solid #8e8e8e;
+    border: 1.5px solid #b3b3b3;
     border-radius: 4px;
     height: 30px;
     font-size: 16px;
   }
+
+  .form-group input:focus {
+    border-color: #fed305; 
+    border-width: 2px; 
+    outline: none;
+}
   
   .card {
     width: 1000px;
-    border: 1px solid #ccc;
+    border: 1.5px solid #b3b3b3;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -89,13 +97,14 @@ h1 {
   }
   
   .card-image {
-    width: 200px;
+    width: 220px;
     height: 200px;
     float: left;
     margin-left: 10px;
+    margin-bottom: 10px;
   }
   
-  .card .title {
+  .card-title {
     font-size: 1.2em;
     font-weight: bold;
     margin-bottom: 10px;
@@ -118,3 +127,118 @@ h1 {
     height: 30px;
   }
   
+.form-amount-input {
+  display: flex;
+  align-items: stretch;
+  border-radius: 8px;
+  border: 1.5px solid #b3b3b3;
+  overflow: hidden;
+  width: 330px;
+  height: 45px;
+}
+
+.label-container {
+  display: flex;
+  align-items: center;
+  padding: 5px 15px;
+  background-color: #f0f0f0;
+  border-right: 1.5px solid #b3b3b3;
+  width: 85%;
+}
+
+.amount-label {
+  color: #666666;
+  font-size: 16px;
+  margin: 0;
+  font-weight: 500;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 15px;
+  background-color: #ffffff;
+  width: 15%;
+  margin-right: 10px;
+}
+
+.amount-input {
+  width: 50px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  font-size: 18px;
+  text-align: center;
+  color: #666666;
+}
+
+.amount-input:focus {
+  outline: none;
+}
+
+.card-title {
+  margin-bottom: 30px;
+  font-size: 1.5em;
+}
+
+.card-footer {
+  display: flex;
+  flex-direction: row;
+  column-gap: 250px;
+  align-items: center;
+}
+
+.duty-price {
+  font-weight: 700;
+  font-size: 20px;
+  width: 110px;
+  text-align: right;
+}
+
+.total-price-container {
+  width: 1000px;
+  height: 60px;
+  border: 2px solid #666666;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.total-price-label {
+  font-weight: 600;
+  margin-left: 20px;
+}
+
+.total-price {
+  font-weight: 700;
+  margin-right: 38px;
+}
+
+.delete-request {
+  padding: 15px 20px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  background-color: #474747;
+  width: 190px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: transform 550ms;
+  will-change: transform;
+  /* margin-left: 98px; */
+}
+
+.delete-request:hover {
+  transform: translateY(-5px);
+}

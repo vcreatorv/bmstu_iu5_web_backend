@@ -1,6 +1,7 @@
 package com.valer.rip.lab1.models;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.OnDelete;
@@ -21,7 +22,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
 @Table(name = "connection_requests")
 @Data
@@ -33,17 +33,16 @@ public class ConnectionRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(length = 10, nullable = false, columnDefinition = "char(10) default 'DRAFT'")
+    @Column(length = 10)
     private String status = "DRAFT";
 
+    @Column(length = 255)
+    private String consumer = "Организация";
 
-    @Column(length = 255, nullable = false)
-    private String consumer;
+    @Column(name = "phone_number", length = 255)
+    private String phoneNumber = "+7 (985) 460 48 79";
 
-    @Column(name = "phone_number", length = 255, nullable = false)
-    private String phoneNumber;
-
-    @Column(name = "creation_datetime", nullable = false)
+    @Column(name = "creation_datetime")
     private LocalDateTime creationDatetime;
 
     @Column(name = "formation_datetime")
@@ -53,16 +52,19 @@ public class ConnectionRequest {
     private LocalDateTime completionDatetime;
 
     @ManyToOne
-    @JoinColumn(name = "manager", nullable = false)
+    @JoinColumn(name = "manager")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User manager;
 
     @ManyToOne
-    @JoinColumn(name = "client", nullable = false)
+    @JoinColumn(name = "client")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User client;
 
     @OneToMany(mappedBy = "connectionRequest", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<DutyRequest> dutyRequests;
+    private List<DutyRequest> dutyRequests = new ArrayList<>();;
 
+    public ConnectionRequest(User client) {
+        this.client = client;
+    }
 }
