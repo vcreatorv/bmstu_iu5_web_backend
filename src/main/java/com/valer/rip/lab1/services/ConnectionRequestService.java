@@ -1,8 +1,10 @@
 package com.valer.rip.lab1.services;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,13 +21,15 @@ public class ConnectionRequestService {
         private final ConnectionRequestRepository connectionRequestRepository;
         private final ProviderDutyRepository providerDutyRepository;
         private final UserRepository userRepository;
+        private final JdbcTemplate jdbcTemplate;
 
         public ConnectionRequestService(ConnectionRequestRepository connectionRequestRepository,
-                        ProviderDutyRepository providerDutyRepository,
-                        UserRepository userRepository) {
+                        ProviderDutyRepository providerDutyRepository, UserRepository userRepository,
+                        JdbcTemplate jdbcTemplate) {
                 this.connectionRequestRepository = connectionRequestRepository;
                 this.providerDutyRepository = providerDutyRepository;
                 this.userRepository = userRepository;
+                this.jdbcTemplate = jdbcTemplate;
         }
 
         @Transactional(readOnly = true)
@@ -35,7 +39,12 @@ public class ConnectionRequestService {
 
         @Transactional(readOnly = true)
         public Optional<ConnectionRequest> getConnectionRequestById(int id) {
-                return connectionRequestRepository.findById(id);
+                Optional<ConnectionRequest> connectionRequestOpt = connectionRequestRepository.findById(id);
+                connectionRequestOpt.ifPresent(connectionRequest -> {
+                        connectionRequest.getDutyRequests()
+                                        .sort(Comparator.comparing(dr -> dr.getProviderDuty().getId()));
+                });
+                return connectionRequestOpt;
         }
 
         @Transactional(readOnly = true)
@@ -81,7 +90,44 @@ public class ConnectionRequestService {
 
                 connectionRequestRepository.save(request);
         }
+
+        @Transactional
+        public void updateProviderDutyAmount(int connectionRequestId, int dutyRequestId, int amount) {
+                ConnectionRequest connectionRequest = connectionRequestRepository.findById(connectionRequestId)
+                                .orElseThrow(() -> new RuntimeException("ConnectionRequest not found"));
+
+                DutyRequest dutyRequestToUpdate = connectionRequest.getDutyRequests().stream()
+                                .filter(dr -> dr.getId() == dutyRequestId)
+                                .findFirst()
+                                .orElseThrow(() -> new RuntimeException(
+                                                "DutyRequest not found in this ConnectionRequest"));
+
+                dutyRequestToUpdate.setAmount(amount);
+        }
+
+        @Transactional
+        public void updateConnectionRequestStatusToDeleted(int connectionRequestId) {
+                String sql = "UPDATE connection_requests SET status = 'DELETED' WHERE id = ?";
+                jdbcTemplate.update(sql, connectionRequestId);
+        }
+
+        @Transactional
+        public void updateConsumer(int connectionRequestId, String consumer) {
+                ConnectionRequest connectionRequest = connectionRequestRepository.findById(connectionRequestId)
+                                .orElseThrow(() -> new RuntimeException("ConnectionRequest not found"));
+                connectionRequest.setConsumer(consumer);
+                connectionRequestRepository.save(connectionRequest);
+        }
+
+        @Transactional
+        public void updatePhoneNumber(int connectionRequestId, String phoneNumber) {
+                ConnectionRequest connectionRequest = connectionRequestRepository.findById(connectionRequestId)
+                                .orElseThrow(() -> new RuntimeException("ConnectionRequest not found"));
+                connectionRequest.setPhoneNumber(phoneNumber);
+                connectionRequestRepository.save(connectionRequest);
+        }
 }
+
 
 // import java.util.ArrayList;
 // import java.util.List;

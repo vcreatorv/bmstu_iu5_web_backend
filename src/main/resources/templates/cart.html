@@ -13,16 +13,29 @@
 
     <div class="container">
         <h1 th:text="'Заявка №' + ${connection_request.getId()}">Заявка №0</h1>
-        <form class="form">
-            <div class="form-group">
+        <div class="about-client">
+            <!-- <form class="form-group">
                 <label for="Consumer">Заказчик:</label>
                 <input type="text" id="Consumer" th:value="${connection_request.getConsumer()}" readonly>
-            </div>
-            <div class="form-group">
+            </form>
+            <form class="form-group">
                 <label for="contact">Номер для связи:</label>
                 <input type="tel" id="contact" th:value="${connection_request.getPhoneNumber()}" readonly>
-            </div>
-        </form>
+            </form> -->
+            <form th:action="@{/connection_requests/update_consumer}" method="post" class="form-group">
+                <input type="hidden" name="_method" value="PUT" />
+                <input type="hidden" name="connectionRequestId" th:value="${connection_request.getId()}" />
+                <label for="consumer">Заказчик:</label>
+                <input type="text" id="consumer" name="consumer" th:value="${connection_request.getConsumer()}" required>
+            </form>
+            
+            <form th:action="@{/connection_requests/update_phone}" method="post" class="form-group">
+                <input type="hidden" name="_method" value="PUT" />
+                <input type="hidden" name="connectionRequestId" th:value="${connection_request.getId()}" />
+                <label for="phoneNumber">Номер для связи:</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" th:value="${connection_request.getPhoneNumber()}" required>
+            </form>
+        </div>
         <div class="cards-container">
             <div th:each="dutyRequest : ${connection_request.getDutyRequests()}" class="card">
 
@@ -31,30 +44,21 @@
                 <div class="card-content">
                     <h2 class="card-title" th:text="${dutyRequest.providerDuty.getTitle()}">Название тарифа</h2>
                     <div class="card-footer">
-                        <div class="form-amount-input">
+                        <form th:action="@{/connection_requests/update_duty_amount}" method="post" class="form-amount-input">
+                            <input type="hidden" name="_method" value="PUT" />
+                            <input type="hidden" name="connectionRequestId" th:value="${connection_request.getId()}" />
+                            <input type="hidden" name="dutyRequestId" th:value="${dutyRequest.getId()}" />
                             <div class="label-container">
                                 <p class="amount-label" th:text="${dutyRequest.providerDuty.getAmountDescription()}"></p>
                             </div>
                             <div class="input-container">
-                                <input class="amount-input" type="number" th:value="${dutyRequest.getAmount()}">
+                                <input class="amount-input" type="number" name="amount" th:value="${dutyRequest.getAmount()}" min="1" required onchange="this.form.submit()">
                             </div>
-                        </div>
+                        </form>
                         <p class="duty-price" th:text="${dutyRequest.providerDuty.getMonthlyPayment()} ? 
                                 (${dutyRequest.providerDuty.getPrice() * dutyRequest.getAmount()} + ' ₽/мес') : 
                                 (${dutyRequest.providerDuty.getPrice() * dutyRequest.getAmount()} + ' ₽')">
                     </div>
-                    
-                        <!-- <div class="detail-item">
-                            <img class="card-detail-image" src="http://127.0.0.1:9000/lab1/quantity.png" alt="Количество">
-                            <p th:text="${dutyRequest.providerDuty.getAmountDescription()} + ' - ' + ${dutyRequest.getAmount()}">Описание</p>
-                        </div>
-                        <div class="detail-item">
-                            <img class="card-detail-image" src="http://127.0.0.1:9000/lab1/ruble.png" alt="Стоимость">
-                            <p th:text="${dutyRequest.providerDuty.getMonthlyPayment()} ? 
-                                        ('стоимость ' + ${dutyRequest.providerDuty.getPrice() * dutyRequest.getAmount()} + ' ₽ в месяц') : 
-                                        ('стоимость ' + ${dutyRequest.providerDuty.getPrice() * dutyRequest.getAmount()} + ' ₽')">
-                            </p>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -62,9 +66,9 @@
                 <p class="total-price-label">Итого:</p>
                 <p class="total-price" th:text="${total_price} + ' ₽'"></p>
             </div>
-
-            <form style="width: 1000px;">
-                <button type="submit" class="delete-request" name="requestId" th:value="${connection_request.getId()}">Удалить заявку</button>
+            <form th:action="@{/connection_requests/delete}" method="post" style="width: 1000px;">
+                <input type="hidden" name="_method" value="PUT" />
+                <button type="submit" class="delete-request" name="connectionRequestId" th:value="${connection_request.getId()}">Удалить заявку</button>
             </form>
         </div>
     </div>

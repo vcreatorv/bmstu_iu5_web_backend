@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -43,6 +44,7 @@ public class ConnectionRequest {
     private String phoneNumber = "+7 (985) 460 48 79";
 
     @Column(name = "creation_datetime")
+    @CreationTimestamp
     private LocalDateTime creationDatetime;
 
     @Column(name = "formation_datetime")

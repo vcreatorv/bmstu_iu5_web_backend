@@ -50,7 +50,7 @@ h1 {
     margin-top: 60px;
   }
 
-.form {
+.about-client {
   margin-bottom: 15px;
 }
 
@@ -147,7 +147,7 @@ h1 {
 }
 
 .amount-label {
-  color: #666666;
+  color: #3f3f3f;
   font-size: 16px;
   margin: 0;
   font-weight: 500;
@@ -170,7 +170,7 @@ h1 {
   background-color: transparent;
   font-size: 18px;
   text-align: center;
-  color: #666666;
+  color: #3f3f3f;
 }
 
 .amount-input:focus {
@@ -185,14 +185,14 @@ h1 {
 .card-footer {
   display: flex;
   flex-direction: row;
-  column-gap: 250px;
+  column-gap: 230px;
   align-items: center;
 }
 
 .duty-price {
   font-weight: 700;
   font-size: 20px;
-  width: 110px;
+  width: 135px;
   text-align: right;
 }
 
