@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.valer.rip.lab1.models.ConnectionRequest;
 import com.valer.rip.lab1.services.ConnectionRequestService;
@@ -33,13 +34,13 @@ public class ConnectionRequestController {
             return "redirect:/duties";
         }
 
-        Optional<ConnectionRequest> connectionRequest = connectionRequestService.getConnectionRequestById(id);
-        if (connectionRequest.isPresent()) {
-            model.addAttribute("connection_request", connectionRequest.get());
-            model.addAttribute("total_price", connectionRequestService.getTotalPriceOfRequest(connectionRequest.get()));
-        } else {
-            System.out.println("Connection request not found");
-            model.addAttribute("total_price", 0);
+        try {
+            ConnectionRequest connectionRequest = connectionRequestService.getConnectionRequestById(id);
+            model.addAttribute("connection_request", connectionRequest);
+            model.addAttribute("total_price", connectionRequestService.getTotalPriceOfRequest(connectionRequest));
+        } catch (ResponseStatusException e) {
+            model.addAttribute("error", e.getReason());
+            model.addAttribute("status", e.getStatusCode());
         }
         return "cart";
     }

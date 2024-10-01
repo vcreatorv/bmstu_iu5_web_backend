@@ -4,9 +4,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.valer.rip.lab1.models.ConnectionRequest;
 import com.valer.rip.lab1.models.DutyRequest;
@@ -38,18 +40,25 @@ public class ConnectionRequestService {
         }
 
         @Transactional(readOnly = true)
-        public Optional<ConnectionRequest> getConnectionRequestById(int id) {
+        public ConnectionRequest getConnectionRequestById(int id) {
                 Optional<ConnectionRequest> connectionRequestOpt = connectionRequestRepository.findById(id);
-                connectionRequestOpt.ifPresent(connectionRequest -> {
-                        connectionRequest.getDutyRequests()
-                                        .sort(Comparator.comparing(dr -> dr.getProviderDuty().getId()));
-                });
-                return connectionRequestOpt;
+                
+                ConnectionRequest connectionRequest = connectionRequestOpt.orElseThrow(() -> 
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "ConnectionRequest not found with id: " + id));
+
+                if ("DELETED".equals(connectionRequest.getStatus())) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ConnectionRequest with id = " + id + " has been deleted");
+                }
+
+                connectionRequest.getDutyRequests()
+                .sort(Comparator.comparing(dr -> dr.getProviderDuty().getId()));
+
+                return connectionRequest;
         }
 
         @Transactional(readOnly = true)
         public Optional<ConnectionRequest> getDraftConnectionRequestByUserId(int userId) {
-                return Optional.ofNullable(connectionRequestRepository.findDraftConnectionRequestByUserId(userId));
+                return connectionRequestRepository.findDraftConnectionRequestByUserId(userId);
         }
 
         public int getTotalPriceOfRequest(ConnectionRequest connectionRequest) {
@@ -127,7 +136,6 @@ public class ConnectionRequestService {
                 connectionRequestRepository.save(connectionRequest);
         }
 }
-
 
 // import java.util.ArrayList;
 // import java.util.List;
