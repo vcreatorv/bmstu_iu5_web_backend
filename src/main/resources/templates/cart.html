@@ -26,15 +26,15 @@
     <div class="container">
         <h1 th:text="'Заявка №' + ${connection_request.getId()}">Заявка №0</h1>
         <div class="about-client">
-            <form th:action="@{/connection_requests/update_consumer}" method="post" class="form-group">
-                <input type="hidden" name="_method" value="PUT" />
+            <form th:method="PUT" th:action="@{/connection_requests/update_consumer}" class="form-group">
+                <!-- <input type="hidden" name="_method" value="PUT" /> -->
                 <input type="hidden" name="connectionRequestId" th:value="${connection_request.getId()}" />
                 <label for="consumer">Заказчик:</label>
                 <input type="text" id="consumer" name="consumer" th:value="${connection_request.getConsumer()}" required>
             </form>
             
-            <form th:action="@{/connection_requests/update_phone}" method="post" class="form-group">
-                <input type="hidden" name="_method" value="PUT" />
+            <form  th:method="PUT" th:action="@{/connection_requests/update_phone}" class="form-group">
+                <!-- <input type="hidden" name="_method" value="PUT" /> -->
                 <input type="hidden" name="connectionRequestId" th:value="${connection_request.getId()}" />
                 <label for="phoneNumber">Номер для связи:</label>
                 <input type="text" id="phoneNumber" name="phoneNumber" th:value="${connection_request.getPhoneNumber()}" required>
@@ -48,8 +48,8 @@
                 <div class="card-content">
                     <h2 class="card-title" th:text="${dutyRequest.providerDuty.getTitle()}">Название тарифа</h2>
                     <div class="card-footer">
-                        <form th:action="@{/connection_requests/update_duty_amount}" method="post" class="form-amount-input">
-                            <input type="hidden" name="_method" value="PUT" />
+                        <form  th:method="PUT" th:action="@{/connection_requests/update_duty_amount}" class="form-amount-input">
+                            <!-- <input type="hidden" name="_method" value="PUT" /> -->
                             <input type="hidden" name="connectionRequestId" th:value="${connection_request.getId()}" />
                             <input type="hidden" name="dutyRequestId" th:value="${dutyRequest.getId()}" />
                             <div class="label-container">
@@ -70,8 +70,8 @@
                 <p class="total-price-label">Итого:</p>
                 <p class="total-price" th:text="${total_price} + ' ₽'"></p>
             </div>
-            <form th:action="@{/connection_requests/delete}" method="post" style="width: 1000px;">
-                <input type="hidden" name="_method" value="PUT" />
+            <form th:method="PUT" th:action="@{/connection_requests/delete}"  style="width: 1000px;">
+                <!-- <input type="hidden" name="_method" value="PUT" /> -->
                 <button type="submit" class="delete-request" name="connectionRequestId" th:value="${connection_request.getId()}">Удалить заявку</button>
             </form>
         </div>
