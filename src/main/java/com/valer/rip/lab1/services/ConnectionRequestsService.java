@@ -18,9 +18,10 @@ public class ConnectionRequestsService {
         public ConnectionRequestsService(ProviderDutiesService providerDutiesService) {
                 this.providerDutiesService = providerDutiesService;
         }
-
+        
         @PostConstruct
         public void init() {
+                List<Map<String, ? extends Object>> providerDuties = providerDutiesService.getProviderDuties();
                 connectionRequests = new ArrayList<>(List.of(
                                 new HashMap<>(Map.of(
                                                 "id", "1",
@@ -28,21 +29,10 @@ public class ConnectionRequestsService {
                                                 "phoneNumber", "+7 (985) 460 48 79",
                                                 "duties", new ArrayList<>(List.of(
                                                                 new HashMap<>(Map.of(
-                                                                                "id", "2",
-                                                                                "title", "Виртуальная АТС",
-                                                                                "imageURL",
-                                                                                "http://127.0.0.1:9000/lab1/2.png",
-                                                                                "initialPrice", 350,
-                                                                                "monthlyPayment", true,
+                                                                                "providerDuty", providerDuties.get(1),
                                                                                 "amount", 5)),
                                                                 new HashMap<>(Map.of(
-                                                                                "id", "6",
-                                                                                "title",
-                                                                                "Аренда двухдиапазонного роутера",
-                                                                                "imageURL",
-                                                                                "http://127.0.0.1:9000/lab1/6.png",
-                                                                                "initialPrice", 599,
-                                                                                "monthlyPayment", true,
+                                                                                "providerDuty", providerDuties.get(5),
                                                                                 "amount", 2))))))));
         }
 
@@ -54,20 +44,6 @@ public class ConnectionRequestsService {
                 Map<String, ? extends Object> cart = connectionRequests.stream()
                                 .filter(request -> request.get("id").equals(id))
                                 .findFirst().orElse(null);
-
-                List<Map<String, ? extends Object>> providerDuties = providerDutiesService.getProviderDuties();
-
-                @SuppressWarnings("unchecked")
-                List<Map<String, Object>> duties = (List<Map<String, Object>>) cart.get("duties");
-
-                duties.forEach(duty -> {
-                        String dutyId = (String) duty.get("id");
-                        providerDuties.stream()
-                                        .filter(providerDuty -> dutyId.equals(providerDuty.get("id")))
-                                        .findFirst()
-                                        .ifPresent(providerDuty -> duty.put("amountDescription",
-                                                        (String) providerDuty.get("amountDescription")));
-                });
 
                 return cart;
         }

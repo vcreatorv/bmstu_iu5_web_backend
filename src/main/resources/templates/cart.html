@@ -23,21 +23,20 @@
         </form>
         <div class="cards-container">
             <div th:each="duty : ${connection_request.get('duties')}" class="card">
-
-                <img class="card-image" th:src="${duty.get('imageURL')}" th:alt="${duty.get('title')}">
+                <img class="card-image" th:src="${duty.get('providerDuty').get('imageURL')}" th:alt="${duty.get('providerDuty').get('title')}">
                 
                 <div class="card-content">
-                    <h2 th:text="${duty.get('title')}">Название тарифа</h2>
+                    <h2 th:text="${duty.get('providerDuty').get('title')}">Название тарифа</h2>
                     <div class="card-details">
                         <div class="detail-item">
                             <img class="card-detail-image" src="http://127.0.0.1:9000/lab1/quantity.png" alt="Количество">
-                            <p th:text="${duty.get('amountDescription')} + ' - ' + ${duty.get('amount')}">Описание</p>
+                            <p th:text="${duty.get('providerDuty').get('amountDescription')} + ' - ' + ${duty.get('amount')}">Описание</p>
                         </div>
                         <div class="detail-item">
                             <img class="card-detail-image" src="http://127.0.0.1:9000/lab1/ruble.png" alt="Стоимость">
-                            <p th:text="${duty.get('monthlyPayment')} ? 
-                                        ('стоимость ' + ${duty.get('initialPrice') * duty.get('amount')} + ' ₽ в месяц') : 
-                                        ('стоимость ' + ${duty.get('initialPrice') * duty.get('amount')} + ' ₽')">
+                            <p th:text="${duty.get('providerDuty').get('monthlyPayment')} ? 
+                                        ('стоимость ' + ${duty.get('providerDuty').get('price') * duty.get('amount')} + ' ₽ в месяц') : 
+                                        ('стоимость ' + ${duty.get('providerDuty').get('price') * duty.get('amount')} + ' ₽')">
                             </p>
                         </div>
                     </div>
