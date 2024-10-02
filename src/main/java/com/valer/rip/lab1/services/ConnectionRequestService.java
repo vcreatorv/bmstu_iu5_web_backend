@@ -83,15 +83,13 @@ public class ConnectionRequestService {
                                 .anyMatch(dutyRequest -> dutyRequest.getProviderDuty().getId() == dutyId);
         }
 
+        @Transactional
         private void addDutyToRequest(ConnectionRequest request, int dutyId) {
                 Optional<ProviderDuty> providerDuty = providerDutyRepository.findById(dutyId);
-
                 DutyRequest newDutyRequest = new DutyRequest();
                 newDutyRequest.setProviderDuty(providerDuty.get());
                 newDutyRequest.setConnectionRequest(request);
                 request.getDutyRequests().add(newDutyRequest);
-
-                connectionRequestRepository.save(request);
         }
 
         @Transactional
