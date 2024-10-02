@@ -24,10 +24,10 @@ public class ProviderDuty {
     @Column(unique = true, length = 255, nullable = false)
     private String title;
 
-    @Column(name = "img_url", length = 255)
+    @Column(name = "img_url", length = 255, nullable = false)
     private String imgUrl;
 
-    @Column(columnDefinition = "text")
+    @Column(columnDefinition = "text", nullable = false)
     private String description;
 
     @Column(name = "is_active", nullable = false)
@@ -42,7 +42,7 @@ public class ProviderDuty {
     @Column(length = 10, nullable = false)
     private String unit;
 
-    @Column(name = "amount_description", length = 255)
+    @Column(name = "amount_description", length = 100, nullable = false)
     private String amountDescription;
 
     public boolean getMonthlyPayment() {

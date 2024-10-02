@@ -34,16 +34,16 @@ public class ConnectionRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(length = 10)
+    @Column(length = 10, nullable = false)
     private String status = "DRAFT";
 
-    @Column(length = 255)
+    @Column(length = 50, nullable = false)
     private String consumer = "Организация";
 
-    @Column(name = "phone_number", length = 255)
+    @Column(name = "phone_number", length = 18, nullable = false)
     private String phoneNumber = "+7 (985) 460 48 79";
 
-    @Column(name = "creation_datetime")
+    @Column(name = "creation_datetime", nullable = false)
     @CreationTimestamp
     private LocalDateTime creationDatetime;
 
@@ -59,7 +59,7 @@ public class ConnectionRequest {
     private User manager;
 
     @ManyToOne
-    @JoinColumn(name = "client")
+    @JoinColumn(name = "client", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User client;
 

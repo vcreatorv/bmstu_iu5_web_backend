@@ -1,7 +1,6 @@
 package com.valer.rip.lab1.services;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -32,11 +31,6 @@ public class ConnectionRequestService {
                 this.providerDutyRepository = providerDutyRepository;
                 this.userRepository = userRepository;
                 this.jdbcTemplate = jdbcTemplate;
-        }
-
-        @Transactional(readOnly = true)
-        public List<ConnectionRequest> getAllConnectionRequests() {
-                return connectionRequestRepository.findAll();
         }
 
         @Transactional(readOnly = true)
@@ -136,92 +130,3 @@ public class ConnectionRequestService {
                 connectionRequestRepository.save(connectionRequest);
         }
 }
-
-// import java.util.ArrayList;
-// import java.util.List;
-// import java.util.Optional;
-
-// import org.springframework.stereotype.Service;
-// import org.springframework.transaction.annotation.Transactional;
-
-// import com.valer.rip.lab1.models.ConnectionRequest;
-// import com.valer.rip.lab1.models.DutyRequest;
-// import com.valer.rip.lab1.models.ProviderDuty;
-// import com.valer.rip.lab1.models.User;
-// import com.valer.rip.lab1.repositories.ConnectionRequestRepository;
-// import com.valer.rip.lab1.repositories.DutyRequestRepository;
-// import com.valer.rip.lab1.repositories.ProviderDutyRepository;
-// import com.valer.rip.lab1.repositories.UserRepository;
-
-// @Service
-// public class ConnectionRequestService {
-// private final ConnectionRequestRepository connectionRequestRepository;
-// private final ProviderDutyRepository providerDutyRepository;
-// private final DutyRequestRepository dutyRequestRepository;
-// private final UserRepository userRepository;
-
-// public ConnectionRequestService(ConnectionRequestRepository
-// connectionRequestRepository,
-// ProviderDutyRepository providerDutyRepository, DutyRequestRepository
-// dutyRequestRepository,
-// UserRepository userRepository) {
-// this.connectionRequestRepository = connectionRequestRepository;
-// this.providerDutyRepository = providerDutyRepository;
-// this.dutyRequestRepository = dutyRequestRepository;
-// this.userRepository = userRepository;
-// }
-
-// public List<ConnectionRequest> getConnectionRequests() {
-// return connectionRequestRepository.findAll();
-// }
-
-// public Optional<ConnectionRequest> getConnectionRequestById(int id) {
-// return Optional.ofNullable(connectionRequestRepository.findById(id));
-// }
-
-// public Optional<ConnectionRequest> getDraftConnectionRequestByUser(String
-// username) {
-// return
-// Optional.ofNullable(connectionRequestRepository.getDraftConnectionRequestByUser(username));
-// }
-
-// @Transactional
-// public void addProviderDutyToRequest(int dutyId) {
-// Optional<ConnectionRequest> draftRequestOpt =
-// getDraftConnectionRequestByUser("vcreatorv");
-// ConnectionRequest draftRequest = draftRequestOpt.orElseGet(() -> {
-// User client = getUserByLogin("vcreatorv"); // Получите пользователя по имени
-// return connectionRequestRepository.createConnectionRequest(client); //
-// Передаем клиента
-// });
-
-// boolean exists = draftRequest.getDutyRequests()
-// .stream()
-// .anyMatch(dutyRequest -> dutyRequest.getProviderDuty().getId() == dutyId);
-
-// if (!exists) {
-// formProviderRequest(draftRequest, dutyId);
-// }
-// }
-
-// public void formProviderRequest(ConnectionRequest request, int dutyId) {
-// Optional<ProviderDuty> providerDutyOpt =
-// Optional.ofNullable(providerDutyRepository.findById(dutyId));
-
-// providerDutyOpt.ifPresent(providerDuty -> {
-// DutyRequest newDutyRequest = new DutyRequest();
-// newDutyRequest.setProviderDuty(providerDuty);
-// newDutyRequest.setConnectionRequest(request);
-// request.getDutyRequests().add(newDutyRequest);
-
-// // Здесь не обязательно сохранять, так как JPA отслеживает изменения
-// // dutyRequestRepository.save(newDutyRequest);
-// });
-// }
-
-// private User getUserByLogin(String login) {
-// // Получите пользователя из репозитория или сервиса
-// return userRepository.findUserByLogin(login); // Или аналогичный метод
-// }
-
-// }
