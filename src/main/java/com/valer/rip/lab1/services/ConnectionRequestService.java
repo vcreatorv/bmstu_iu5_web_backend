@@ -38,10 +38,10 @@ public class ConnectionRequestService {
                 Optional<ConnectionRequest> connectionRequestOpt = connectionRequestRepository.findById(id);
                 
                 ConnectionRequest connectionRequest = connectionRequestOpt.orElseThrow(() -> 
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "ConnectionRequest not found with id: " + id));
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Заявка на подключение с id = " + id + " не найдена"));
 
                 if ("DELETED".equals(connectionRequest.getStatus())) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ConnectionRequest with id = " + id + " has been deleted");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Заявка на подключение с id = " + id + " удалена");
                 }
 
                 connectionRequest.getDutyRequests()
@@ -97,13 +97,13 @@ public class ConnectionRequestService {
         @Transactional
         public void updateProviderDutyAmount(int connectionRequestId, int dutyRequestId, int amount) {
                 ConnectionRequest connectionRequest = connectionRequestRepository.findById(connectionRequestId)
-                                .orElseThrow(() -> new RuntimeException("ConnectionRequest not found"));
+                                .orElseThrow(() -> new RuntimeException("Заявка на подключение не найдена"));
 
                 DutyRequest dutyRequestToUpdate = connectionRequest.getDutyRequests().stream()
                                 .filter(dr -> dr.getId() == dutyRequestId)
                                 .findFirst()
                                 .orElseThrow(() -> new RuntimeException(
-                                                "DutyRequest not found in this ConnectionRequest"));
+                                                "Заявка с данной услугой не найдена"));
 
                 dutyRequestToUpdate.setAmount(amount);
         }
@@ -117,7 +117,7 @@ public class ConnectionRequestService {
         @Transactional
         public void updateConsumer(int connectionRequestId, String consumer) {
                 ConnectionRequest connectionRequest = connectionRequestRepository.findById(connectionRequestId)
-                                .orElseThrow(() -> new RuntimeException("ConnectionRequest not found"));
+                                .orElseThrow(() -> new RuntimeException("Заявка на подключение не найдена"));
                 connectionRequest.setConsumer(consumer);
                 connectionRequestRepository.save(connectionRequest);
         }
@@ -125,7 +125,7 @@ public class ConnectionRequestService {
         @Transactional
         public void updatePhoneNumber(int connectionRequestId, String phoneNumber) {
                 ConnectionRequest connectionRequest = connectionRequestRepository.findById(connectionRequestId)
-                                .orElseThrow(() -> new RuntimeException("ConnectionRequest not found"));
+                                .orElseThrow(() -> new RuntimeException("Заявка на подключение не найдена"));
                 connectionRequest.setPhoneNumber(phoneNumber);
                 connectionRequestRepository.save(connectionRequest);
         }

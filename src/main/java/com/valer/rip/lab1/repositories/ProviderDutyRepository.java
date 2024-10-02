@@ -11,6 +11,8 @@ import com.valer.rip.lab1.models.ProviderDuty;
 
 @Repository
 public interface ProviderDutyRepository extends JpaRepository<ProviderDuty, Integer> {
-    @Query("FROM ProviderDuty pd WHERE LOWER(pd.title) LIKE LOWER(CONCAT('%', :title, '%'))")
+    @Query("FROM ProviderDuty pd WHERE pd.isActive=true AND LOWER(pd.title) LIKE LOWER(CONCAT('%', :title, '%'))")
     List<ProviderDuty> findProviderDutyByTitle(@Param("title") String title);
+
+    List<ProviderDuty> findByIsActiveTrue();
 }
