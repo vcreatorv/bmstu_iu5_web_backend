@@ -11,5 +11,5 @@ import com.valer.rip.lab1.models.ProviderDuty;
 public interface ProviderDutyRepository extends JpaRepository<ProviderDuty, Integer> {
     List<ProviderDuty> findByTitleContaining(String title);
 
-    List<ProviderDuty> findByIsActiveTrue();
+    List<ProviderDuty> findByActiveTrue();
 }

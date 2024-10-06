@@ -30,8 +30,8 @@ public class ProviderDuty {
     @Column(columnDefinition = "text", nullable = false)
     private String description;
 
-    @Column(name = "is_active", nullable = false)
-    private boolean isActive;
+    @Column(name = "active", nullable = false)
+    private boolean active;
 
     @Column(nullable = false)
     private int price;

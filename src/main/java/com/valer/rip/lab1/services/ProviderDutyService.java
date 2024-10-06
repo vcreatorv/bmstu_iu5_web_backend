@@ -20,7 +20,7 @@ public class ProviderDutyService {
 
     @Transactional(readOnly = true)
     public List<ProviderDuty> getAllProviderDuties() {
-        return providerDutyRepository.findByIsActiveTrue();
+        return providerDutyRepository.findByActiveTrue();
     }
 
     @Transactional(readOnly = true)
