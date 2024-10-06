@@ -30,6 +30,6 @@ public class ProviderDutyService {
 
     @Transactional(readOnly = true)
     public List<ProviderDuty> findProviderDutiesByTitle(String title) {
-        return providerDutyRepository.findByTitleContaining(title.toLowerCase());
+        return providerDutyRepository.findByTitle(title);
     }
 }

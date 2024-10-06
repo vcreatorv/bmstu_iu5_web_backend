@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.valer.rip.lab1.models.ProviderDuty;
 
 @Repository
 public interface ProviderDutyRepository extends JpaRepository<ProviderDuty, Integer> {
-    List<ProviderDuty> findByTitleContaining(String title);
+    @Query("FROM ProviderDuty pd WHERE pd.active=true AND LOWER(pd.title) LIKE LOWER(CONCAT('%', :title, '%'))")
+    List<ProviderDuty> findByTitle(String title);
 
     List<ProviderDuty> findByActiveTrue();
 }
