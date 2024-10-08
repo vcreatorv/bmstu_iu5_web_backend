@@ -1,0 +1,251 @@
+body {
+    background-color: #f3f3f3;
+    font-family: "Inter", sans-serif;
+    color:#373737;
+    margin: 0px;
+}
+
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.search-text {
+    display: flex;
+    width: 84%;
+    max-width: 1200px;
+    font-size: 18px;
+    margin: 20px auto;
+}
+
+
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 300px);
+    width: 100%;
+    max-width: 1000px;
+    justify-content: center;
+    justify-items: center;
+    column-gap: 50px;
+    row-gap: 40px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+
+.card {
+    width: 300px;
+    height: 360px; 
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    display: flex;
+    flex-direction: column; 
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    justify-content: space-between; 
+  }
+
+.card-header {
+    height: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    overflow: hidden;
+}
+
+.card-header img {
+    width: 270px;
+    height: auto;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 15px;
+    margin-top: 5px;
+}
+
+
+.card-footer {
+    display: flex;
+    align-items: center;
+    margin:15px;
+    gap: 15px;
+    font-weight: bold;
+    flex-direction: row;
+}
+
+.card-price {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+.btn-about {
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    background-color: #fed305;
+    width: 85px;
+    color: #373737;
+    text-decoration: none;
+    transition: transform 550ms;
+    will-change: transform;
+}
+
+  .btn-about:hover {
+    transform: translateY(-5px);
+  }
+
+.btn-add {
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    background-color: #adadad;
+    width: 125px;
+    color: #373737;
+    text-decoration: none;
+    transition: transform 550ms;
+    will-change: transform;
+}
+
+.btn-add:hover {
+    transform: translateY(-5px);
+}
+
+
+
+.search-form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 20px auto;
+    /* padding: 10px; */
+    border: 1px solid #B8B8B8;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.search-input {
+    flex-grow: 1;
+    border: none;
+    padding: 20px;
+    padding-left: 0px;
+    margin-right: 10px;
+    border-radius: 5px 0 0 5px;
+    color: #6a6a6a;
+    font-size: 19px;
+    font-weight: normal;
+}
+
+.search-input:focus {
+    outline: none;
+}
+
+.search-button,
+.reset-button {
+    background: none;
+    border: none;
+    padding: 20px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.search-button img,
+.reset-button img {
+    width: 20px;
+    height: 20px;
+}
+
+.search-button {
+    margin-right: 10px;
+}
+
+.reset-button {
+    margin-left: 10px;
+}
+
+
+
+
+
+
+.page-title {
+    text-align:center;
+}
+
+.cart {
+    width: 150px;
+    height: 95px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #838383;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+    /* margin-right: 260px; */
+    /* margin-left: auto; */
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #ffffff;
+    color: #373737;
+    text-decoration: none;
+    transition: transform 550ms;
+    will-change: transform;
+    margin-top: 80px;
+    align-self: flex-end;
+}
+
+  .cart:hover {
+    transform: translateY(-5px);
+  }
+
+.cart img {
+    height: auto;
+    width: 40px;
+    margin-top: 10px;
+}
+
+
+.logo-container {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    border-bottom: solid 2px #b8b8b8;
+    position: fixed;
+    z-index: 10;
+    background-color: #fed305;
+    top: 0;
+}
+
+.logo-button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    height: 50px;
+}
+
+.logo-button:hover {
+    filter: brightness(110%);
+}
+
+.logo {
+    width: auto; 
+    height: 50px; 
+}
+
