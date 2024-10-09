@@ -103,25 +103,25 @@ public class ProviderDutiesController {
         }
     }
 
-    @DeleteMapping("/{dutyID}/{requestID}/delete")
-    public ResponseEntity<String> deleteProviderDutyFromConnectionRequest(@PathVariable("dutyID") int dutyID, @PathVariable("requestID") int requestID) {
-        try {
-            providerDutyService.deleteProviderDutyFromConnectionRequest(dutyID, requestID);
-            return ResponseEntity.status(HttpStatus.OK).body("Услуга с ID = " + dutyID + " успешно удалена из заявки с ID = " + requestID);
-        } 
-        catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ошибка при удалении услуги с ID = " + dutyID + "из заявки c ID = " + requestID + ": " + e.getMessage());
-        }
-    }
+    // @DeleteMapping("/{dutyID}/{requestID}/delete")
+    // public ResponseEntity<String> deleteProviderDutyFromConnectionRequest(@PathVariable("dutyID") int dutyID, @PathVariable("requestID") int requestID) {
+    //     try {
+    //         providerDutyService.deleteProviderDutyFromConnectionRequest(dutyID, requestID);
+    //         return ResponseEntity.status(HttpStatus.OK).body("Услуга с ID = " + dutyID + " успешно удалена из заявки с ID = " + requestID);
+    //     } 
+    //     catch (Exception e) {
+    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ошибка при удалении услуги с ID = " + dutyID + "из заявки c ID = " + requestID + ": " + e.getMessage());
+    //     }
+    // }
 
-    @PutMapping("/{dutyID}/{requestID}/update-amount")
-    public ResponseEntity<? extends Object> updateAmountInDutyRequest(@PathVariable("dutyID") int dutyID, @PathVariable("requestID") int requestID, @RequestParam("amount") int amount) {
-        try {
-            DutyRequest updatedDutyRequest = providerDutyService.updateAmountInDutyRequest(dutyID, requestID, amount);
-            return ResponseEntity.status(HttpStatus.OK).body(updatedDutyRequest);
-        } 
-        catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ошибка при изменении поля amount услуги с ID = " + dutyID + "в заявке c ID = " + requestID + ": " + e.getMessage());
-        }
-    }
+    // @PutMapping("/{dutyID}/{requestID}/update-amount")
+    // public ResponseEntity<? extends Object> updateAmountInDutyRequest(@PathVariable("dutyID") int dutyID, @PathVariable("requestID") int requestID, @RequestParam("amount") int amount) {
+    //     try {
+    //         DutyRequest updatedDutyRequest = providerDutyService.updateAmountInDutyRequest(dutyID, requestID, amount);
+    //         return ResponseEntity.status(HttpStatus.OK).body(updatedDutyRequest);
+    //     } 
+    //     catch (Exception e) {
+    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ошибка при изменении поля amount услуги с ID = " + dutyID + "в заявке c ID = " + requestID + ": " + e.getMessage());
+    //     }
+    // }
 }
