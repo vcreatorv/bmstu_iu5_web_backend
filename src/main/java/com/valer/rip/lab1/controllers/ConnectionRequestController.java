@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,7 +56,7 @@ public class ConnectionRequestController {
     }
 
     @PutMapping("/{requestID}/update")
-    public ResponseEntity<? extends Object> updateConnectionRequest(@PathVariable int requestID, @RequestBody ConnectionRequestDTO requestDTO) {
+    public ResponseEntity<? extends Object> updateConnectionRequest(@PathVariable int requestID, @ModelAttribute ConnectionRequestDTO requestDTO) {
         try {
             ConnectionRequest updatedRequest = connectionRequestService.updateConnectionRequest(requestID, requestDTO);
             return ResponseEntity.status(HttpStatus.OK).body(updatedRequest);

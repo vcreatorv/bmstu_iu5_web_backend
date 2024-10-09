@@ -19,5 +19,4 @@ public interface DutyRequestRepository extends JpaRepository<DutyRequest, Intege
     void deleteByConnectionRequestAndProviderDuty(ConnectionRequest connectionRequest, ProviderDuty providerDuty);
 
     Optional<DutyRequest> findByConnectionRequestAndProviderDuty(ConnectionRequest connectionRequest, ProviderDuty providerDuty);
-
 }

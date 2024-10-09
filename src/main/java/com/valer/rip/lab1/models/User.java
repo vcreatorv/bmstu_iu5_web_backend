@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class User {
 
     @Id
@@ -30,4 +29,7 @@ public class User {
     @Column(name = "is_staff", nullable = false)
     private boolean isStaff;
 
+    public User() {
+        this.isStaff = false;
+    }
 }

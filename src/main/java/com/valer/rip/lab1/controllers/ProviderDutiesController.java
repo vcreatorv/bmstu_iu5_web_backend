@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -48,7 +49,7 @@ public class ProviderDutiesController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<? extends Object> createProviderDuty(@RequestBody ProviderDuty providerDuty) {
+    public ResponseEntity<? extends Object> createProviderDuty(@ModelAttribute ProviderDuty providerDuty) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(providerDutyService.createProviderDuty(providerDuty));
         }
@@ -58,7 +59,7 @@ public class ProviderDutiesController {
     }
 
     @PutMapping("/{dutyID}/update")
-    public ResponseEntity<?> updateProviderDuty(@PathVariable("dutyID") int dutyID, @RequestBody ProviderDutyDTO providerDutyDTO) {
+    public ResponseEntity<?> updateProviderDuty(@PathVariable("dutyID") int dutyID, @ModelAttribute ProviderDutyDTO providerDutyDTO) {
         try {
             ProviderDuty updatedDuty = providerDutyService.updateProviderDuty(dutyID, providerDutyDTO);
             return ResponseEntity.status(HttpStatus.OK).body(updatedDuty);

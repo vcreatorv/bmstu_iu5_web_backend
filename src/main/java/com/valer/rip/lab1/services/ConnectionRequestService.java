@@ -1,8 +1,8 @@
 package com.valer.rip.lab1.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.time.LocalDateTime;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -17,8 +17,6 @@ import com.valer.rip.lab1.models.DutyRequest;
 import com.valer.rip.lab1.models.User;
 import com.valer.rip.lab1.repositories.ConnectionRequestRepository;
 import com.valer.rip.lab1.repositories.DutyRequestRepository;
-import com.valer.rip.lab1.repositories.ProviderDutyRepository;
-import com.valer.rip.lab1.repositories.UserRepository;
 
 import jakarta.annotation.PostConstruct;
 
@@ -28,7 +26,7 @@ public class ConnectionRequestService {
     private final ConnectionRequestRepository connectionRequestRepository;
     private final DutyRequestRepository dutyRequestRepository;
     private final UserService userService;
-     private final ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public ConnectionRequestService(ConnectionRequestRepository connectionRequestRepository, 
                                     UserService userService,
