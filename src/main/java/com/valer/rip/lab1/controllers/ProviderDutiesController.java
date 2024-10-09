@@ -49,9 +49,10 @@ public class ProviderDutiesController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<? extends Object> createProviderDuty(@ModelAttribute ProviderDuty providerDuty) {
+    public ResponseEntity<? extends Object> createProviderDuty(@ModelAttribute ProviderDutyDTO providerDutyDTO) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(providerDutyService.createProviderDuty(providerDuty));
+            ProviderDuty providerDuty = providerDutyService.createProviderDuty(providerDutyDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(providerDuty);
         }
         catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

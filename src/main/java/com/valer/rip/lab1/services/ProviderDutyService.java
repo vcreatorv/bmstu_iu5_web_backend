@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -106,8 +105,10 @@ public class ProviderDutyService {
     }
 
     @Transactional
-    public ProviderDuty createProviderDuty(ProviderDuty providerDuty) throws Exception {
+    public ProviderDuty createProviderDuty(ProviderDutyDTO providerDutyDTO) throws Exception {
         try {
+            ProviderDuty providerDuty = new ProviderDuty();
+            modelMapper.map(providerDutyDTO, providerDuty);
             return providerDutyRepository.save(providerDuty);
         } 
         catch (DataIntegrityViolationException e) {
@@ -204,7 +205,7 @@ public class ProviderDutyService {
         ProviderDuty providerDuty = providerDutyRepository.findById(dutyID)
                 .orElseThrow(() -> new Exception("Услуга не найдена"));
 
-        String fileName = "updated_image" + getFileExtension(image.getOriginalFilename());
+        String fileName = providerDuty.getId() + getFileExtension(image.getOriginalFilename());
 
         try {
             minioClient.putObject(
