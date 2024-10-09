@@ -53,6 +53,9 @@ public class ConnectionRequest {
     @Column(name = "completion_datetime")
     private LocalDateTime completionDatetime;
 
+    @Column(name = "total_price")
+    private int totalPrice;
+
     @ManyToOne
     @JoinColumn(name = "manager")
     @OnDelete(action = OnDeleteAction.CASCADE)

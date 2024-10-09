@@ -178,15 +178,16 @@ h1 {
 }
 
 .card-title {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-size: 1.5em;
 }
 
 .card-footer {
   display: flex;
-  flex-direction: row;
-  column-gap: 230px;
-  align-items: center;
+  flex-direction: column;
+  row-gap: 15px;
+  align-items: flex-end;
+  margin-right: 40px;
 }
 
 .duty-price {
@@ -241,4 +242,8 @@ h1 {
 
 .delete-request:hover {
   transform: translateY(-5px);
+}
+
+.card-content {
+  flex-grow: 1;
 }
