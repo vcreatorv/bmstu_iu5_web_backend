@@ -49,7 +49,7 @@ public class ConnectionRequest {
     private LocalDateTime completionDatetime;
 
     @Column(name = "total_price")
-    private int totalPrice;
+    private Integer totalPrice;
 
     @ManyToOne
     @JoinColumn(name = "manager")

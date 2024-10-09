@@ -33,7 +33,7 @@ public class DutyRequestController {
         }
     }
 
-    @PutMapping("/{dutyID}/{requestID}/update-amount")
+    @PutMapping("/{dutyID}/{requestID}/update")
     public ResponseEntity<? extends Object> updateAmountInDutyRequest(@PathVariable("dutyID") int dutyID, @PathVariable("requestID") int requestID, @RequestParam("amount") int amount) {
         try {
             DutyRequest updatedDutyRequest = dutyRequestService.updateAmountInDutyRequest(dutyID, requestID, amount);

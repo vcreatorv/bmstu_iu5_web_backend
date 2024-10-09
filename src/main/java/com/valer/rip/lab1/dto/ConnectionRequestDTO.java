@@ -20,7 +20,7 @@ public class ConnectionRequestDTO {
     private LocalDateTime creationDatetime;
     private LocalDateTime formationDatetime;
     private LocalDateTime completionDatetime;
-    private int totalPrice;
+    private Integer totalPrice;
     // private Integer managerId;
     // private Integer clientId;
     private User manager;

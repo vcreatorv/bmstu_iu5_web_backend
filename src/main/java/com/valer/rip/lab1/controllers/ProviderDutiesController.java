@@ -1,6 +1,5 @@
 package com.valer.rip.lab1.controllers;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -11,16 +10,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.valer.rip.lab1.dto.ProviderDutyDTO;
-import com.valer.rip.lab1.models.DutyRequest;
 import com.valer.rip.lab1.models.ProviderDuty;
-
 import com.valer.rip.lab1.services.ProviderDutyService;
 
 @RestController
@@ -34,8 +30,8 @@ public class ProviderDutiesController {
     }
 
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getAllProviderDuties(@RequestParam(required = false) String titleFilter) {
-        return ResponseEntity.status(HttpStatus.OK).body(providerDutyService.getAllProviderDuties(titleFilter));
+    public ResponseEntity<Map<String, Object>> getAllProviderDuties(@RequestParam(required = false) String title) {
+        return ResponseEntity.status(HttpStatus.OK).body(providerDutyService.getAllProviderDuties(title));
     }
 
     @GetMapping("/{dutyID}")
@@ -48,11 +44,11 @@ public class ProviderDutiesController {
         }
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<? extends Object> createProviderDuty(@ModelAttribute ProviderDutyDTO providerDutyDTO) {
+    @PostMapping("/create")
+    public ResponseEntity<? extends Object> createProviderDuty(@ModelAttribute ProviderDuty providerDuty) {
         try {
-            ProviderDuty providerDuty = providerDutyService.createProviderDuty(providerDutyDTO);
-            return ResponseEntity.status(HttpStatus.OK).body(providerDuty);
+            // ProviderDuty providerDuty = providerDutyService.createProviderDuty(providerDuty);
+            return ResponseEntity.status(HttpStatus.OK).body(providerDutyService.createProviderDuty(providerDuty));
         }
         catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -81,7 +77,7 @@ public class ProviderDutiesController {
         }
     }
 
-    @PostMapping("/{dutyID}/add-to-request")
+    @PostMapping("/{dutyID}/add")
     public ResponseEntity<?> addProviderDutyToRequest(@PathVariable("dutyID") int dutyID) {
         try {
             providerDutyService.addProviderDutyToRequest(dutyID);

@@ -65,13 +65,12 @@ public class ProviderDutyService {
 
     @Transactional(readOnly = true)
     public Map<String, Object> getAllProviderDuties(String titleFilter) {
-        int userID = userService.getUserID();
-        User user = userService.findById(userID).get();
+        User user = userService.findById(userService.getUserID()).get();
         Optional<ConnectionRequest> connectionRequestOpt = connectionRequestRepository.findByClientAndStatus(user, "DRAFT");
         
         Map<String, Object> response = new HashMap<>();
-        response.put("userLogin", user.getLogin());
         response.put("cartSize", 0);
+        response.put("connectionRequestID", 0);
 
         if(connectionRequestOpt.isPresent()) {
             response.put("connectionRequestID", connectionRequestOpt.get().getId());
@@ -105,10 +104,10 @@ public class ProviderDutyService {
     }
 
     @Transactional
-    public ProviderDuty createProviderDuty(ProviderDutyDTO providerDutyDTO) throws Exception {
+    public ProviderDuty createProviderDuty(ProviderDuty providerDuty) throws Exception {
         try {
-            ProviderDuty providerDuty = new ProviderDuty();
-            modelMapper.map(providerDutyDTO, providerDuty);
+            // ProviderDuty providerDuty = new ProviderDuty();
+            // modelMapper.map(providerDutyDTO, providerDuty);
             return providerDutyRepository.save(providerDuty);
         } 
         catch (DataIntegrityViolationException e) {
