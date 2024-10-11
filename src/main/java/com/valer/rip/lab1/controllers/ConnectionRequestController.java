@@ -29,16 +29,16 @@ public class ConnectionRequestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ConnectionRequest>> getAllConnectionRequests() {
+    public ResponseEntity<List<ConnectionRequestDTO>> getAllConnectionRequests() {
         return ResponseEntity.status(HttpStatus.OK).body(connectionRequestService.getAllConnectionRequests());
     }
 
     @GetMapping("/{requestID}")
-    public ResponseEntity<? extends Object> getConnectionRequestById(@PathVariable("requestID") int requestID) {
+    public ResponseEntity<?> getConnectionRequestById(@PathVariable("requestID") int requestID) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(connectionRequestService.getConnectionRequestById(requestID));
-        }
-        catch (Exception e) {
+            ConnectionRequestDTO connectionRequest = connectionRequestService.getConnectionRequestById(requestID);
+            return ResponseEntity.status(HttpStatus.OK).body(connectionRequest);
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
@@ -48,16 +48,15 @@ public class ConnectionRequestController {
         try {
             connectionRequestService.deleteConnectionRequest(requestID);
             return ResponseEntity.status(HttpStatus.OK).body("Заявка на подключение c ID = " + requestID + " успешно удалена");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @PutMapping("/{requestID}/update")
-    public ResponseEntity<? extends Object> updateConnectionRequest(@PathVariable int requestID, @ModelAttribute ConnectionRequestDTO requestDTO) {
+    public ResponseEntity<?> updateConnectionRequest(@PathVariable int requestID, @ModelAttribute ConnectionRequestDTO requestDTO) {
         try {
-            ConnectionRequest updatedRequest = connectionRequestService.updateConnectionRequest(requestID, requestDTO);
+            ConnectionRequestDTO updatedRequest = connectionRequestService.updateConnectionRequest(requestID, requestDTO);
             return ResponseEntity.status(HttpStatus.OK).body(updatedRequest);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -65,9 +64,9 @@ public class ConnectionRequestController {
     }
 
     @PutMapping("/{requestID}/form")
-    public ResponseEntity<? extends Object> formConnectionRequest(@PathVariable int requestID) {
+    public ResponseEntity<?> formConnectionRequest(@PathVariable int requestID) {
         try {
-            ConnectionRequest formedRequest = connectionRequestService.formConnectionRequest(requestID);
+            ConnectionRequestDTO formedRequest = connectionRequestService.formConnectionRequest(requestID);
             return ResponseEntity.status(HttpStatus.OK).body(formedRequest);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -75,12 +74,68 @@ public class ConnectionRequestController {
     }
 
     @PutMapping("/{requestID}/resolve")
-    public ResponseEntity<? extends Object> closeConnectionRequest(@PathVariable int requestID, @RequestParam("status") String status) {
+    public ResponseEntity<?> closeConnectionRequest(@PathVariable int requestID, @RequestParam("status") String status) {
         try {
-            ConnectionRequest closedRequest = connectionRequestService.closeConnectionRequest(requestID, status);
+            ConnectionRequestDTO closedRequest = connectionRequestService.closeConnectionRequest(requestID, status);
             return ResponseEntity.status(HttpStatus.OK).body(closedRequest);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    // @GetMapping
+    // public ResponseEntity<List<ConnectionRequest>> getAllConnectionRequests() {
+    //     return ResponseEntity.status(HttpStatus.OK).body(connectionRequestService.getAllConnectionRequests());
+    // }
+
+    // @GetMapping("/{requestID}")
+    // public ResponseEntity<? extends Object> getConnectionRequestById(@PathVariable("requestID") int requestID) {
+    //     try {
+    //         return ResponseEntity.status(HttpStatus.OK).body(connectionRequestService.getConnectionRequestById(requestID));
+    //     }
+    //     catch (Exception e) {
+    //         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    //     }
+    // }
+
+    // @DeleteMapping("/{requestID}/delete")
+    // public ResponseEntity<String> deleteConnectionRequest(@PathVariable int requestID) {
+    //     try {
+    //         connectionRequestService.deleteConnectionRequest(requestID);
+    //         return ResponseEntity.status(HttpStatus.OK).body("Заявка на подключение c ID = " + requestID + " успешно удалена");
+    //     }
+    //     catch (Exception e) {
+    //         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    //     }
+    // }
+
+    // @PutMapping("/{requestID}/update")
+    // public ResponseEntity<? extends Object> updateConnectionRequest(@PathVariable int requestID, @ModelAttribute ConnectionRequestDTO requestDTO) {
+    //     try {
+    //         ConnectionRequest updatedRequest = connectionRequestService.updateConnectionRequest(requestID, requestDTO);
+    //         return ResponseEntity.status(HttpStatus.OK).body(updatedRequest);
+    //     } catch (Exception e) {
+    //         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    //     }
+    // }
+
+    // @PutMapping("/{requestID}/form")
+    // public ResponseEntity<? extends Object> formConnectionRequest(@PathVariable int requestID) {
+    //     try {
+    //         ConnectionRequest formedRequest = connectionRequestService.formConnectionRequest(requestID);
+    //         return ResponseEntity.status(HttpStatus.OK).body(formedRequest);
+    //     } catch (Exception e) {
+    //         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    //     }
+    // }
+
+    // @PutMapping("/{requestID}/resolve")
+    // public ResponseEntity<? extends Object> closeConnectionRequest(@PathVariable int requestID, @RequestParam("status") String status) {
+    //     try {
+    //         ConnectionRequest closedRequest = connectionRequestService.closeConnectionRequest(requestID, status);
+    //         return ResponseEntity.status(HttpStatus.OK).body(closedRequest);
+    //     } catch (Exception e) {
+    //         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    //     }
+    // }
 }

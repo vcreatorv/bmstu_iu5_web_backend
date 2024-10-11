@@ -32,10 +32,10 @@ public class ConnectionRequest {
     @Column(length = 10, nullable = false)
     private String status = "DRAFT";
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50)
     private String consumer;
 
-    @Column(name = "phone_number", length = 18, nullable = false)
+    @Column(name = "phone_number", length = 18)
     private String phoneNumber;
 
     @Column(name = "creation_datetime", nullable = false)

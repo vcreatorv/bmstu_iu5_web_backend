@@ -31,13 +31,13 @@ public class ProviderDuty {
     private String description;
 
     @Column(name = "active", nullable = false)
-    private boolean active;
+    private Boolean active;
 
     @Column(nullable = false)
     private int price;
 
     @Column(name = "monthly_payment", nullable = false)
-    private boolean monthlyPayment;
+    private Boolean monthlyPayment;
 
     @Column(length = 10, nullable = false)
     private String unit;
@@ -45,11 +45,11 @@ public class ProviderDuty {
     @Column(name = "amount_description", length = 100, nullable = false)
     private String amountDescription;
 
-    public boolean getMonthlyPayment() {
+    public Boolean getMonthlyPayment() {
         return monthlyPayment;
     }
 
-    public boolean getActive() {
+    public Boolean getActive() {
         return active;
     }
 }

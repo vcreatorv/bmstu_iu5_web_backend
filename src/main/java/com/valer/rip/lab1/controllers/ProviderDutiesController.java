@@ -80,8 +80,7 @@ public class ProviderDutiesController {
     @PostMapping("/{dutyID}/add")
     public ResponseEntity<?> addProviderDutyToRequest(@PathVariable("dutyID") int dutyID) {
         try {
-            providerDutyService.addProviderDutyToRequest(dutyID);
-            return ResponseEntity.status(HttpStatus.OK).body("Услуга успешно добавлена в заявку");
+            return ResponseEntity.status(HttpStatus.OK).body(providerDutyService.addProviderDutyToRequest(dutyID));
         } 
         catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ошибка при добавлении услуги в заявку: " + e.getMessage());

@@ -3,7 +3,7 @@ package com.valer.rip.lab1.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.valer.rip.lab1.models.User;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ConnectionRequestDTO {
     private int id;
     private String status;
@@ -21,17 +22,7 @@ public class ConnectionRequestDTO {
     private LocalDateTime formationDatetime;
     private LocalDateTime completionDatetime;
     private Integer totalPrice;
-    // private Integer managerId;
-    // private Integer clientId;
-    private User manager;
-    private User client;
+    private String manager; // Changed from User to String
+    private String client;  // Changed from User to String
     private List<ProviderDutyDTO> duties;
-
-    // public Integer setClient() {
-    //     return clientId;
-    // }
-
-    // public Integer setManager() {
-    //     return managerId;
-    // }
 }

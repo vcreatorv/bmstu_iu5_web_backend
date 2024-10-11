@@ -8,12 +8,14 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.valer.rip.lab1.config.MinioConfig;
+import com.valer.rip.lab1.dto.ConnectionRequestDTO;
 import com.valer.rip.lab1.dto.ProviderDutyDTO;
 import com.valer.rip.lab1.models.ConnectionRequest;
 import com.valer.rip.lab1.models.DutyRequest;
@@ -34,6 +36,7 @@ public class ProviderDutyService {
 
     private final ProviderDutyRepository providerDutyRepository;
     private final ConnectionRequestRepository connectionRequestRepository;
+    private final ConnectionRequestService connectionRequestService;
     private final DutyRequestRepository dutyRequestRepository;
     private final UserService userService;
     private final MinioClient minioClient;
@@ -44,6 +47,7 @@ public class ProviderDutyService {
     public ProviderDutyService(ProviderDutyRepository providerDutyRepository, 
                                 ConnectionRequestRepository connectionRequestRepository, 
                                 DutyRequestRepository dutyRequestRepository,
+                                ConnectionRequestService connectionRequestService,
                                 UserService userService,
                                 MinioClient minioClient,
                                 MinioConfig minioConfig, 
@@ -51,6 +55,7 @@ public class ProviderDutyService {
         this.providerDutyRepository = providerDutyRepository;
         this.connectionRequestRepository = connectionRequestRepository;
         this.dutyRequestRepository = dutyRequestRepository;
+        this.connectionRequestService = connectionRequestService;
         this.minioClient = minioClient;
         this.userService = userService;
         this.minioConfig = minioConfig;
@@ -59,8 +64,14 @@ public class ProviderDutyService {
 
     @PostConstruct
     public void setupMapper() {
+        modelMapper.getConfiguration()
+        .setSkipNullEnabled(true)
+        .setMatchingStrategy(MatchingStrategies.STRICT);
+
         modelMapper.createTypeMap(ProviderDutyDTO.class, ProviderDuty.class)
             .addMappings(mapper -> mapper.skip(ProviderDuty::setId));
+
+        modelMapper.createTypeMap(ProviderDuty.class, ProviderDutyDTO.class);
     }
 
     @Transactional(readOnly = true)
@@ -166,7 +177,7 @@ public class ProviderDutyService {
     }
 
     @Transactional
-    public ConnectionRequest addProviderDutyToRequest(int dutyID) throws Exception {
+    public ConnectionRequestDTO addProviderDutyToRequest(int dutyID) throws Exception {
         User user = userService.findById(userService.getUserID())
                 .orElseThrow(() -> new Exception("Пользователь не найден"));
 
@@ -193,10 +204,10 @@ public class ProviderDutyService {
             dutyRequest.setConnectionRequest(request);
             dutyRequest.setAmount(1);
             dutyRequestRepository.save(dutyRequest);
-            return connectionRequestRepository.save(request);
+            return connectionRequestService.convertToDTO(connectionRequestRepository.save(request), true);
         }
 
-        return request;
+        return connectionRequestService.convertToDTO(request, true);
     }
 
     @Transactional
@@ -223,6 +234,10 @@ public class ProviderDutyService {
         catch (Exception e) {
             throw new Exception("Ошибка при загрузке изображения: " + e.getMessage());
         }
+    }
+
+    public ProviderDutyDTO convertToDTO(ProviderDuty providerDuty) {
+        return modelMapper.map(providerDuty, ProviderDutyDTO.class);
     }
 
     // @Transactional

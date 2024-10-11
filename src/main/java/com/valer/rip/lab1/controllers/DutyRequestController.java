@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.valer.rip.lab1.dto.DutyRequestDTO;
 import com.valer.rip.lab1.models.DutyRequest;
 import com.valer.rip.lab1.services.DutyRequestService;
 
@@ -33,14 +34,28 @@ public class DutyRequestController {
         }
     }
 
+    // @PutMapping("/{dutyID}/{requestID}/update")
+    // public ResponseEntity<? extends Object> updateAmountInDutyRequest(@PathVariable("dutyID") int dutyID, @PathVariable("requestID") int requestID, @RequestParam("amount") int amount) {
+    //     try {
+    //         DutyRequest updatedDutyRequest = dutyRequestService.updateAmountInDutyRequest(dutyID, requestID, amount);
+    //         return ResponseEntity.status(HttpStatus.OK).body(updatedDutyRequest);
+    //     } 
+    //     catch (Exception e) {
+    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ошибка при изменении поля amount услуги с ID = " + dutyID + "в заявке c ID = " + requestID + ": " + e.getMessage());
+    //     }
+    // }
     @PutMapping("/{dutyID}/{requestID}/update")
-    public ResponseEntity<? extends Object> updateAmountInDutyRequest(@PathVariable("dutyID") int dutyID, @PathVariable("requestID") int requestID, @RequestParam("amount") int amount) {
+    public ResponseEntity<?> updateAmountInDutyRequest(@PathVariable("dutyID") int dutyID, 
+                                                    @PathVariable("requestID") int requestID, 
+                                                    @RequestParam("amount") int amount) {
         try {
-            DutyRequest updatedDutyRequest = dutyRequestService.updateAmountInDutyRequest(dutyID, requestID, amount);
+            DutyRequestDTO updatedDutyRequest = dutyRequestService.updateAmountInDutyRequest(dutyID, requestID, amount);
             return ResponseEntity.status(HttpStatus.OK).body(updatedDutyRequest);
         } 
         catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ошибка при изменении поля amount услуги с ID = " + dutyID + "в заявке c ID = " + requestID + ": " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Ошибка при изменении поля amount услуги с ID = " + dutyID + 
+                    " в заявке c ID = " + requestID + ": " + e.getMessage());
         }
     }
 }
