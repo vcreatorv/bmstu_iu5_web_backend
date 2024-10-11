@@ -1,0 +1,601 @@
+{
+	"info": {
+		"_postman_id": "f7cabe0e-cf90-443f-ae75-d64ce381a39a",
+		"name": "RIP_LAB3_REST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37173509"
+	},
+	"item": [
+		{
+			"name": "duties",
+			"item": [
+				{
+					"name": "all_duties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/provider-duties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"provider-duties"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "подкЛюч",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "one_duty",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/provider-duties/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"provider-duties",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_duty",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "price",
+									"value": "450",
+									"type": "text"
+								},
+								{
+									"key": "active",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/provider-duties/2/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"provider-duties",
+								"2",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_duty",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/provider-duties/6/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"provider-duties",
+								"6",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_to_request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/provider-duties/2/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"provider-duties",
+								"2",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/valer/OneDrive/Рабочий стол/5 семестр/РИП/БД/1.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/provider-duties/1/image",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"provider-duties",
+								"1",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create_duty",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Аренда двухдиапазонного роутера",
+									"type": "text"
+								},
+								{
+									"key": "imgUrl",
+									"value": "http://127.0.0.1:9000/lab1/6.png",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Роутер максимального уровня. Имеет WAN-порт 2,5Гбит/с и 3 порта 1Гбит/с для ваших устройств. Максимальная скорость Wi-Fi более 2 Гбит/с.<br><br>- Скорость до 2,5Гбит/с<br>- Поддержка 2.4 и 5 Ггц",
+									"type": "text"
+								},
+								{
+									"key": "active",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "699",
+									"type": "text"
+								},
+								{
+									"key": "monthlyPayment",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "unit",
+									"value": "шт",
+									"type": "text"
+								},
+								{
+									"key": "amountDescription",
+									"value": "количество роутеров",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/provider-duties/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"provider-duties",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "requests",
+			"item": [
+				{
+					"name": "all_requests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/connection-requests",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"connection-requests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/connection-requests/3/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"connection-requests",
+								"3",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "one_request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/connection-requests/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"connection-requests",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_request",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "consumer",
+									"value": "Организация",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "DRAFT",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "phoneNumber",
+									"value": "+7 (985) 499 59 89",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/connection-requests/6/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"connection-requests",
+								"6",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "form_request",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/connection-requests/6/form",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"connection-requests",
+								"6",
+								"form"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resolve_request",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "status",
+									"value": "COMPLETED",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/connection-requests/1/resolve",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"connection-requests",
+								"1",
+								"resolve"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "duties_requests",
+			"item": [
+				{
+					"name": "delete_duty_from_request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/duties-requests/1/3/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"duties-requests",
+								"1",
+								"3",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_amount",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/duties-requests/3/3/update?amount=6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"duties-requests",
+								"3",
+								"3",
+								"update"
+							],
+							"query": [
+								{
+									"key": "amount",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "create_user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "login",
+									"value": "test_user",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/users/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"users",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authenticate_user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "login",
+									"value": "test_user",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/api/users/authenticate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"users",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout_user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/users/logout?login=test_user&password=123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"users",
+								"logout"
+							],
+							"query": [
+								{
+									"key": "login",
+									"value": "test_user"
+								},
+								{
+									"key": "password",
+									"value": "123"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/api/users/2/update?login=testUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"api",
+								"users",
+								"2",
+								"update"
+							],
+							"query": [
+								{
+									"key": "login",
+									"value": "testUser"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
