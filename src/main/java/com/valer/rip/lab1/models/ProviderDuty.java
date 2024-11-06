@@ -24,20 +24,20 @@ public class ProviderDuty {
     @Column(unique = true, length = 255, nullable = false)
     private String title;
 
-    @Column(name = "img_url", length = 255, nullable = false)
+    @Column(name = "img_url", length = 255)
     private String imgUrl;
 
     @Column(columnDefinition = "text", nullable = false)
     private String description;
 
-    @Column(name = "active", nullable = false)
-    private Boolean active;
+    @Column(name = "active", nullable = false, columnDefinition = "boolean default true")
+    private Boolean active = true;
 
-    @Column(nullable = false)
-    private int price;
+    @Column(nullable = false, columnDefinition = "int default 0")
+    private int price = 0;
 
-    @Column(name = "monthly_payment", nullable = false)
-    private Boolean monthlyPayment;
+    @Column(name = "monthly_payment", nullable = false, columnDefinition = "boolean default false")
+    private Boolean monthlyPayment = false;
 
     @Column(length = 10, nullable = false)
     private String unit;

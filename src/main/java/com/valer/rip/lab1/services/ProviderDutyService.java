@@ -80,12 +80,12 @@ public class ProviderDutyService {
         Optional<ConnectionRequest> connectionRequestOpt = connectionRequestRepository.findByClientAndStatus(user, "DRAFT");
         
         Map<String, Object> response = new HashMap<>();
-        response.put("cartSize", 0);
-        response.put("connectionRequestID", 0);
+        response.put("itemsInCart", 0);
+        response.put("connectionRequestId", 0);
 
         if(connectionRequestOpt.isPresent()) {
-            response.put("connectionRequestID", connectionRequestOpt.get().getId());
-            response.put("cartSize", dutyRequestRepository.findByConnectionRequestEquals(connectionRequestOpt.get()).size());
+            response.put("connectionRequestId", connectionRequestOpt.get().getId());
+            response.put("itemsInCart", dutyRequestRepository.findByConnectionRequestEquals(connectionRequestOpt.get()).size());
         }
 
         List<ProviderDuty> providerDuties = new ArrayList<>();
@@ -96,7 +96,7 @@ public class ProviderDutyService {
             providerDuties = providerDutyRepository.findByActiveTrueOrderById();
         }
        
-        response.put("providerDuties", providerDuties);
+        response.put("providerServiceList", providerDuties);
         
         return response;
     }
