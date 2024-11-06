@@ -1,7 +1,6 @@
 package com.valer.rip.lab1.services;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,8 +73,35 @@ public class ProviderDutyService {
         modelMapper.createTypeMap(ProviderDuty.class, ProviderDutyDTO.class);
     }
 
+    // @Transactional(readOnly = true)
+    // public Map<String, Object> getAllProviderDuties(String titleFilter) {
+    //     User user = userService.findById(userService.getUserID()).get();
+    //     Optional<ConnectionRequest> connectionRequestOpt = connectionRequestRepository.findByClientAndStatus(user, "DRAFT");
+        
+    //     Map<String, Object> response = new HashMap<>();
+    //     response.put("itemsInCart", 0);
+    //     response.put("connectionRequestId", 0);
+
+    //     if(connectionRequestOpt.isPresent()) {
+    //         response.put("connectionRequestId", connectionRequestOpt.get().getId());
+    //         response.put("itemsInCart", dutyRequestRepository.findByConnectionRequestEquals(connectionRequestOpt.get()).size());
+    //     }
+
+    //     List<ProviderDuty> providerDuties = new ArrayList<>();
+    //     if (titleFilter != null) {
+    //         providerDuties = providerDutyRepository.findByTitleOrderById(titleFilter);
+    //     }
+    //     else{
+    //         providerDuties = providerDutyRepository.findByActiveTrueOrderById();
+    //     }
+       
+    //     response.put("providerServiceList", providerDuties);
+        
+    //     return response;
+    // }
+
     @Transactional(readOnly = true)
-    public Map<String, Object> getAllProviderDuties(String titleFilter) {
+    public Map<String, Object> getAllProviderDuties(String titleFilter, Boolean monthlyPayment) {
         User user = userService.findById(userService.getUserID()).get();
         Optional<ConnectionRequest> connectionRequestOpt = connectionRequestRepository.findByClientAndStatus(user, "DRAFT");
         
@@ -88,14 +114,17 @@ public class ProviderDutyService {
             response.put("itemsInCart", dutyRequestRepository.findByConnectionRequestEquals(connectionRequestOpt.get()).size());
         }
 
-        List<ProviderDuty> providerDuties = new ArrayList<>();
-        if (titleFilter != null) {
-            providerDuties = providerDutyRepository.findByTitleOrderById(titleFilter);
+        List<ProviderDuty> providerDuties;
+        if (titleFilter != null && monthlyPayment != null) {
+            providerDuties = providerDutyRepository.findByTitleContainingIgnoreCaseAndActiveTrueAndMonthlyPayment(titleFilter, monthlyPayment);
+        } else if (titleFilter != null) {
+            providerDuties = providerDutyRepository.findByTitleContainingIgnoreCaseAndActiveTrue(titleFilter);
+        } else if (monthlyPayment != null) {
+            providerDuties = providerDutyRepository.findByMonthlyPaymentAndActiveTrue(monthlyPayment);
+        } else {
+            providerDuties = providerDutyRepository.findByActiveTrue();
         }
-        else{
-            providerDuties = providerDutyRepository.findByActiveTrueOrderById();
-        }
-       
+    
         response.put("providerServiceList", providerDuties);
         
         return response;

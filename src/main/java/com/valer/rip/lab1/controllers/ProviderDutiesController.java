@@ -29,9 +29,16 @@ public class ProviderDutiesController {
         this.providerDutyService = providerDutyService;
     }
 
+    
+    // public ResponseEntity<Map<String, Object>> getAllProviderDuties(@RequestParam(required = false) String title) {
+    //     return ResponseEntity.status(HttpStatus.OK).body(providerDutyService.getAllProviderDuties(title));
+    // }
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getAllProviderDuties(@RequestParam(required = false) String title) {
-        return ResponseEntity.status(HttpStatus.OK).body(providerDutyService.getAllProviderDuties(title));
+    public ResponseEntity<Map<String, Object>> getAllProviderDuties(
+        @RequestParam(required = false) String title,
+        @RequestParam(required = false) Boolean monthlyPayment) {
+        return ResponseEntity.status(HttpStatus.OK).body(providerDutyService.getAllProviderDuties(title, monthlyPayment));
+    
     }
 
     @GetMapping("/{dutyID}")
